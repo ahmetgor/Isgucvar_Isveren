@@ -1,12 +1,17 @@
 webpackJsonp([15],{
 
-/***/ 159:
+/***/ 157:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OzgecmisFiltrelePage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__user_ser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(44);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,18 +23,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-/**
- * Generated class for the OzgecmisFiltrelePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-var OzgecmisFiltrelePage = /** @class */ (function () {
-    function OzgecmisFiltrelePage(navCtrl, navParams, viewCtrl, events) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.viewCtrl = viewCtrl;
-        this.events = events;
+
+
+
+
+/*
+  Generated class for the IlanSerProvider provider.
+
+  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
+  for more info on providers and Angular DI.
+*/
+var IlanSerProvider = /** @class */ (function () {
+    function IlanSerProvider(http, authService, toastCtrl, loadingCtrl, storage) {
+        this.http = http;
+        this.authService = authService;
+        this.toastCtrl = toastCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.storage = storage;
+        // url : string = 'https://serverisgucvar.herokuapp.com/api/ilanlar/';
+        this.url = 'http://127.0.0.1:8080/api/ilanlar/';
+        // ozgecmis: any;
         this.sehirler = [
             { "sehir": "İstanbul" }, { "sehir": "Ankara" }, { "sehir": "İzmir" }, { "sehir": "Adana" }, { "sehir": "Adıyaman" }, { "sehir": "Afyonkarahisar" },
             { "sehir": "Ağrı" }, { "sehir": "Aksaray" }, { "sehir": "Amasya" }, { "sehir": "Antalya" }, { "sehir": "Ardahan" }, { "sehir": "Artvin" },
@@ -46,120 +59,150 @@ var OzgecmisFiltrelePage = /** @class */ (function () {
             { "sehir": "Trabzon" }, { "sehir": "Tunceli" }, { "sehir": "Şanlıurfa" }, { "sehir": "Uşak" }, { "sehir": "Van" }, { "sehir": "Yalova" },
             { "sehir": "Yozgat" }, { "sehir": "Zonguldak" }
         ];
-        this.detayAra = navParams.get('detayAra');
-        console.log(JSON.stringify(this.detayAra) + 'detay');
-        this.sirala = navParams.get('sirala');
-        this.page = this.navParams.get('page');
+        console.log('Hello IlanSerProvider Provider');
     }
-    OzgecmisFiltrelePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad OzgecmisFiltrelePage');
+    IlanSerProvider.prototype.getIlanlar = function (searchTerm, searchKayit, orderBy, skip, limit) {
+        var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Authorization', this.authService.token);
+        var order = JSON.parse(orderBy);
+        console.log(JSON.stringify(order) + 'order service');
+        console.log(order + 'order service string');
+        return new Promise(function (resolve, reject) {
+            var uri = encodeURI(_this.url + ("?term=" + searchTerm + "&kayit=" + JSON.stringify(searchKayit) + "&orderBy=" + JSON.stringify(order) + "&skip=" + skip + "&limit=" + limit));
+            _this.http.get(uri, { headers: headers })
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                // console.log(JSON.stringify(data));
+                resolve(data);
+            }, function (err) {
+                // reject(err);
+                _this.presentToast('İlanlar alınamadı. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
+            });
+        });
     };
-    OzgecmisFiltrelePage.prototype.filtrele = function () {
-        console.log(this.sirala + 'kapatfiltre');
-        console.log(JSON.stringify(this.detayAra) + 'kapatfiltre');
-        // console.log(JSON.stringify(this.sirala)+'parsefiltre');
-        this.events.publish('ozgecmis:filtered_' + this.navParams.get('page'));
-        this.navCtrl.pop();
+    IlanSerProvider.prototype.updateIlan = function (kayit) {
+        var _this = this;
+        this.showLoader();
+        return new Promise(function (resolve, reject) {
+            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+            headers.append('Content-Type', 'application/json');
+            headers.append('Authorization', _this.authService.token);
+            console.log(JSON.stringify(kayit) + 'order service add ilan');
+            _this.http.put(_this.url + kayit._id, JSON.stringify(kayit), { headers: headers })
+                .map(function (res) { return res.json(); })
+                .subscribe(function (res) {
+                // this.ozgecmis = kayit;
+                // this.storage.set('ozgecmis', kayit);
+                console.log(JSON.stringify(res) + "updateall");
+                _this.loading.dismiss();
+                _this.presentToast('İlan güncellendi!');
+                resolve(res);
+            }, function (err) {
+                // reject(err);
+                _this.loading.dismiss();
+                _this.presentToast('İlan güncellenemedi. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
+            });
+        });
     };
-    OzgecmisFiltrelePage.prototype.clear = function () {
-        console.log(JSON.stringify(this.detayAra) + 'clearfiltre');
-        this.events.publish('ozgecmis:filtered_' + this.navParams.get('page'), 'clear');
-        this.navCtrl.pop();
+    IlanSerProvider.prototype.getIlan = function (ilanId) {
+        var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Authorization', this.authService.token);
+        return new Promise(function (resolve, reject) {
+            _this.http.get(_this.url + ilanId, { headers: headers })
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                // this.ozgecmis = data;
+                // this.storage.set('ozgecmis', data);
+                // console.log(JSON.stringify(data)+"data123");
+                resolve(data);
+            }, function (err) {
+                // reject(err);
+                _this.presentToast('İlan alınamadı. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
+            });
+        });
     };
-    OzgecmisFiltrelePage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ozgecmis-filtrele',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ozgecmis-filtrele\ozgecmis-filtrele.html"*/'<!--\n\n  Generated template for the OzgecmisFiltrelePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Özgeçmiş Filtrele</ion-title>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <div *ngIf="detayAra">\n\n    <ion-item>\n\n      <ion-label floating color="primary">Özgeçmiş Sahibi</ion-label>\n\n      <ion-input type="text" [(ngModel)]="detayAra.isim"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating color="primary">Ünvan / Son Pozisyon</ion-label>\n\n        <ion-input  type="text" [(ngModel)]="detayAra.unvan"></ion-input>\n\n    </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label floating color="primary">İl</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.sehir" interface="popover" cancelText="İptal" okText="Tamam">\n\n    <!-- <ion-option value=\'Konumum\'>Konumum</ion-option> -->\n\n    <ion-option *ngFor="let item of sehirler" value=\'{{item.sehir}}\'>{{item.sehir}}</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label floating color="primary">Eğitim</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.egitimdurum" cancelText="İptal" okText="Tamam">\n\n    <ion-option value="1">İlköğretim</ion-option>\n\n    <ion-option value="2">Lise</ion-option>\n\n    <ion-option value="3">Lisans</ion-option>\n\n    <ion-option value="4">Yüksek Lisans</ion-option>\n\n    <ion-option value="5">Doktora</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label [hidden]="page != \'tüm\'" floating color="primary">Özgeçmiş Çeşidi</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.tumfirma" cancelText="İptal" okText="Tamam">\n\n    <ion-option value="f">Sadece Firma Özgeçmişleri</ion-option>\n\n    <ion-option value="t">Tüm Özgeçmişler</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n      <ion-label floating color="primary">Minimum Tecrübe (yıl)</ion-label>\n\n      <ion-input  type="number" [(ngModel)]="detayAra.yilTecrube"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-label floating color="primary">Minimum Doğum Tarihi</ion-label>\n\n    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="detayAra.dogumTarihi" cancelText="İptal" doneText="Tamam">\n\n    </ion-datetime>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n      <ion-label stacked color="primary">Bilgisayar Teknolojileri</ion-label>\n\n      <ion-input  type="text" placeholder="Örn: Excel,Sql" [(ngModel)]="detayAra.bilgisayar"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n      <ion-label floating color="primary">Yabancı Dil:</ion-label>\n\n      <ion-input  type="text" [(ngModel)]="detayAra.dil"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label floating color="primary">Dil Seviye</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.seviye" cancelText="İptal" okText="Tamam">\n\n    <ion-option value="1">Başlangıç</ion-option>\n\n    <ion-option value="2">Orta</ion-option>\n\n    <ion-option value="3">İyi</ion-option>\n\n    <ion-option value="4">Çok İyi</ion-option>\n\n    <ion-option value="5">Mükemmel</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-row>\n\n  <ion-col>\n\n  <button ion-button block icon-left color="secondary"  (click)="clear()">\n\n   <ion-icon name="backspace"></ion-icon>\n\n   Temizle</button>\n\n  </ion-col>\n\n  <ion-col>\n\n  <button ion-button block icon-left color="primary" (click)="filtrele()">\n\n   <ion-icon name="search"></ion-icon>\n\n   Filtrele</button>\n\n  </ion-col>\n\n  </ion-row>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ozgecmis-filtrele\ozgecmis-filtrele.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
-    ], OzgecmisFiltrelePage);
-    return OzgecmisFiltrelePage;
+    IlanSerProvider.prototype.createIlan = function (ilan) {
+        var _this = this;
+        this.showLoader();
+        return new Promise(function (resolve, reject) {
+            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+            headers.append('Content-Type', 'application/json');
+            headers.append('Authorization', _this.authService.token);
+            _this.http.post(_this.url, JSON.stringify(ilan), { headers: headers })
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                // this.currentUser = details;
+                _this.loading.dismiss();
+                _this.presentToast('İlan eklendi!');
+                resolve(data);
+            }, function (err) {
+                _this.loading.dismiss();
+                _this.presentToast('İlan eklenemedi. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
+                reject(err);
+            });
+        });
+    };
+    IlanSerProvider.prototype.presentToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 4000,
+            position: 'top',
+            showCloseButton: true,
+            closeButtonText: 'OK'
+        });
+        toast.onDidDismiss(function () {
+            // console.log('Dismissed toast');
+        });
+        toast.present();
+    };
+    IlanSerProvider.prototype.getUsers = function (id) {
+        var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append('Authorization', this.authService.token);
+        return new Promise(function (resolve, reject) {
+            _this.http.get(_this.url + 'getusers/' + id, { headers: headers })
+                .map(function (res) { return res.json(); })
+                .subscribe(function (data) {
+                console.log(JSON.stringify(data) + "data123");
+                resolve(data);
+            }, function (err) {
+                // reject(err);
+                _this.presentToast('Kullanıcı listesi alınamadı. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
+            });
+        });
+    };
+    IlanSerProvider.prototype.showLoader = function () {
+        this.loading = this.loadingCtrl.create({
+            content: 'İşlem yapılıyor...'
+        });
+        this.loading.present();
+    };
+    IlanSerProvider = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
+    ], IlanSerProvider);
+    return IlanSerProvider;
 }());
 
-//# sourceMappingURL=ozgecmis-filtrele.js.map
+//# sourceMappingURL=ilan-ser.js.map
 
 /***/ }),
 
-/***/ 160:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanFiltrelePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(49);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-/**
- * Generated class for the IlanFiltrelePage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
-var IlanFiltrelePage = /** @class */ (function () {
-    function IlanFiltrelePage(navCtrl, navParams, viewCtrl, events, ilanSer) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.viewCtrl = viewCtrl;
-        this.events = events;
-        this.ilanSer = ilanSer;
-        this.sehirler = [];
-        this.sehirler = ilanSer.sehirler;
-        this.detayAra = navParams.get('detayAra');
-        console.log(JSON.stringify(this.detayAra) + 'detay');
-        this.sirala = navParams.get('sirala');
-        this.ilanlarim = navParams.get('ilanlarim');
-    }
-    IlanFiltrelePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad IlanFiltrelePage' + this.ilanlarim);
-    };
-    IlanFiltrelePage.prototype.filtrele = function () {
-        console.log(this.sirala + 'kapatfiltre');
-        console.log(JSON.stringify(this.detayAra) + 'kapatfiltre');
-        // console.log(JSON.stringify(this.sirala)+'parsefiltre');
-        this.events.publish('ilan:filtered' + this.ilanlarim);
-        this.navCtrl.pop();
-    };
-    IlanFiltrelePage.prototype.clear = function () {
-        console.log(JSON.stringify(this.detayAra) + 'clearfiltre');
-        this.events.publish('ilan:filtered', 'clear');
-        this.navCtrl.pop();
-    };
-    IlanFiltrelePage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ilan-filtrele',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-filtrele\ilan-filtrele.html"*/'<!--\n\n  Generated template for the IlanFiltrelePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>İlan Filtrele</ion-title>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <div *ngIf="detayAra">\n\n  <!-- <ion-item-group>\n\n    <ion-item-divider color="light"></ion-item-divider>\n\n  <ion-item>\n\n  <ion-label color="secondary">Sırala:</ion-label>\n\n  <ion-select [(ngModel)]="sirala" cancelText="İptal" okText="Tamam">\n\n    <ion-option value=\'{}\'>En Uygun</ion-option>\n\n    <ion-option value=\'{"olusturmaTarih" :-1}\'>En Erken</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n</ion-item-group> -->\n\n\n\n<!-- <ion-item-group>\n\n  <ion-item-divider color="light"></ion-item-divider> -->\n\n  <ion-item>\n\n  <ion-label floating color="primary">İl</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.il" interface="popover" cancelText="İptal" okText="Tamam">\n\n    <!-- <ion-option value=\'Konumum\'>Konumum</ion-option> -->\n\n    <ion-option *ngFor="let item of sehirler" value=\'{{item.sehir}}\'>{{item.sehir}}</ion-option>\n\n\n\n    <!-- <ion-option value=\'İstanbul\'>İstanbul</ion-option>\n\n    <ion-option value=\'Ankara\'>Ankara</ion-option>\n\n    <ion-option value=\'Kahramanmaraş\'>Kahramanmaraş</ion-option> -->\n\n  </ion-select>\n\n  </ion-item>\n\n  <div [hidden]="ilanlarim">\n\n<ion-item>\n\n    <ion-label floating color="primary">İlan Sahibi</ion-label>\n\n    <ion-input type="text" [(ngModel)]="detayAra.olusturan"></ion-input>\n\n</ion-item>\n\n</div>\n\n<ion-item>\n\n  <ion-label floating color="primary">Tecrübe</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.tecrube" multiple="true" cancelText="İptal" okText="Tamam">\n\n    <!-- <ion-option value=\'\' selected="true">Farketmez</ion-option> -->\n\n    <ion-option value=\'Az Tecrübeli (Junior)\'>Az Tecrübeli (Junior)</ion-option>\n\n    <ion-option value=\'Orta Tecrübeli (Midlevel)\'>Orta Tecrübeli (Midlevel)</ion-option>\n\n    <ion-option value=\'Çok Tecrübeli (Senior)\'>Çok Tecrübeli (Senior)</ion-option>\n\n    <ion-option value=\'Yönetici (Manager)\'>Yönetici (Manager)</ion-option>\n\n    <ion-option value=\'Stajyer\'>Stajyer</ion-option>\n\n    <ion-option value=\'Hizmet Personeli - İşçi\'>Hizmet Personeli - İşçi</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n<ion-item>\n\n<ion-label floating color="primary">Eğitim</ion-label>\n\n<ion-select [(ngModel)]="detayAra.egitim" multiple="true" cancelText="İptal" okText="Tamam">\n\n  <ion-option value=\'Lise\'>Lise</ion-option>\n\n  <ion-option value=\'Lisans\'>Lisans</ion-option>\n\n  <ion-option value=\'Yüksek Lisans - Doktora\'>Yüksek Lisans - Doktora</ion-option>\n\n</ion-select>\n\n</ion-item>\n\n\n\n <!-- </ion-item-group> -->\n\n\n\n <ion-row>\n\n <ion-col>\n\n <button ion-button block icon-left color="secondary"  (click)="clear()">\n\n   <ion-icon name="backspace"></ion-icon>\n\n   Temizle</button>\n\n </ion-col>\n\n <ion-col>\n\n <button ion-button block icon-left color="primary" (click)="filtrele()">\n\n   <ion-icon name="search"></ion-icon>\n\n   Filtrele</button>\n\n </ion-col>\n\n</ion-row>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-filtrele\ilan-filtrele.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__["a" /* IlanSerProvider */]])
-    ], IlanFiltrelePage);
-    return IlanFiltrelePage;
-}());
-
-//# sourceMappingURL=ilan-filtrele.js.map
-
-/***/ }),
-
-/***/ 161:
+/***/ 158:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_ozgecmis_ser__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_ozgecmis_ser__ = __webpack_require__(91);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -286,17 +329,17 @@ var SignupPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 162:
+/***/ 159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupFirmaPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(92);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -431,15 +474,15 @@ var SignupFirmaPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 163:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ResetPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(48);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -531,7 +574,7 @@ var ResetPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 177:
+/***/ 173:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -544,73 +587,73 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 177;
+webpackEmptyAsyncContext.id = 173;
 
 /***/ }),
 
-/***/ 222:
+/***/ 218:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/firma-hesap/firma-hesap.module": [
-		710,
-		4
+		706,
+		8
 	],
 	"../pages/hesap/hesap.module": [
-		711,
-		3
+		707,
+		7
 	],
 	"../pages/ilan-detay/ilan-detay.module": [
-		712,
-		14
+		708,
+		1
 	],
 	"../pages/ilan-ekle/ilan-ekle.module": [
-		713,
-		13
+		709,
+		3
 	],
 	"../pages/ilan-filtrele/ilan-filtrele.module": [
+		710,
+		14
+	],
+	"../pages/ilanlarim/ilanlarim.module": [
+		711,
+		6
+	],
+	"../pages/login/login.module": [
+		712,
+		13
+	],
+	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
+		713,
+		2
+	],
+	"../pages/ozgecmis-filtrele/ozgecmis-filtrele.module": [
 		714,
 		12
 	],
-	"../pages/ilanlarim/ilanlarim.module": [
+	"../pages/ozgecmislerim/ozgecmislerim.module": [
 		715,
+		5
+	],
+	"../pages/reset/reset.module": [
+		716,
 		11
 	],
-	"../pages/login/login.module": [
-		716,
+	"../pages/signup-firma/signup-firma.module": [
+		717,
 		10
 	],
-	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
+	"../pages/signup/signup.module": [
+		718,
+		9
+	],
+	"../pages/tum-ilanlar/tum-ilanlar.module": [
 		719,
 		0
 	],
-	"../pages/ozgecmis-filtrele/ozgecmis-filtrele.module": [
-		717,
-		9
-	],
-	"../pages/ozgecmislerim/ozgecmislerim.module": [
-		721,
-		8
-	],
-	"../pages/reset/reset.module": [
-		718,
-		7
-	],
-	"../pages/signup-firma/signup-firma.module": [
-		720,
-		6
-	],
-	"../pages/signup/signup.module": [
-		723,
-		5
-	],
-	"../pages/tum-ilanlar/tum-ilanlar.module": [
-		722,
-		2
-	],
 	"../pages/tum-ozgecmisler/tum-ozgecmisler.module": [
-		724,
-		1
+		720,
+		4
 	]
 };
 function webpackAsyncContext(req) {
@@ -624,22 +667,22 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 222;
+webpackAsyncContext.id = 218;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 24:
+/***/ 32:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(19);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -656,11 +699,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var UserSerProvider = /** @class */ (function () {
-    function UserSerProvider(http, storage, toastCtrl, loadingCtrl) {
+    function UserSerProvider(http, storage, toastCtrl, loadingCtrl, events) {
         this.http = http;
         this.storage = storage;
         this.toastCtrl = toastCtrl;
         this.loadingCtrl = loadingCtrl;
+        this.events = events;
         this.token = {};
         this.user = {};
         // url : string = 'https://serverisgucvar.herokuapp.com/api/firmaauth/';
@@ -668,6 +712,7 @@ var UserSerProvider = /** @class */ (function () {
         this.url = 'http://127.0.0.1:8080/api/firmaauth/';
         this.url1 = 'http://127.0.0.1:8080/api/tools/';
         console.log('Hello UserSerProvider Provider');
+        this.checkAuthentication();
     }
     UserSerProvider.prototype.checkAuthentication = function () {
         var _this = this;
@@ -681,6 +726,7 @@ var UserSerProvider = /** @class */ (function () {
                 headers.append('Authorization', _this.token);
                 _this.http.get(_this.url + 'protected', { headers: headers })
                     .subscribe(function (res) {
+                    _this.events.publish('login:event');
                     resolve(res);
                 }, function (err) {
                     reject(err);
@@ -887,7 +933,8 @@ var UserSerProvider = /** @class */ (function () {
     UserSerProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* LoadingController */]])
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* Events */]])
     ], UserSerProvider);
     return UserSerProvider;
 }());
@@ -896,18 +943,14 @@ var UserSerProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 34:
+/***/ 362:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanFiltrelePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_signup__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_reset__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(157);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -920,103 +963,142 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
-
-
-
-// import { PassResetPage } from '../pass-reset/pass-reset';
-var LoginPage = /** @class */ (function () {
-    function LoginPage(navCtrl, authService, loadingCtrl, storage, events) {
+/**
+ * Generated class for the IlanFiltrelePage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+var IlanFiltrelePage = /** @class */ (function () {
+    function IlanFiltrelePage(navCtrl, navParams, viewCtrl, events, ilanSer) {
         this.navCtrl = navCtrl;
-        this.authService = authService;
-        this.loadingCtrl = loadingCtrl;
-        this.storage = storage;
+        this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
         this.events = events;
-        console.log("loginpage");
+        this.ilanSer = ilanSer;
+        this.sehirler = [];
+        this.sehirler = ilanSer.sehirler;
+        this.detayAra = navParams.get('detayAra');
+        console.log(JSON.stringify(this.detayAra) + 'detay');
+        this.sirala = navParams.get('sirala');
+        this.ilanlarim = navParams.get('ilanlarim');
     }
-    LoginPage.prototype.ionViewDidLoad = function () {
-        var _this = this;
-        console.log('ionViewDidLoad LoginPage');
-        this.storage.get('user')
-            .then(function (user) {
-            _this.email = user.email;
-            _this.password = user.password;
-            console.log("storage user");
-        })
-            .catch(function (err) {
-            console.log("hata");
-            return;
-        });
-        this.showLoader('Bilgiler yükleniyor...');
-        //Check if already authenticated
-        this.authService.checkAuthentication().then(function (res) {
-            console.log("Already authorized");
-            _this.events.publish('login:event');
-            _this.loading.dismiss();
-            if (_this.navCtrl.canGoBack())
-                return;
-            else
-                _this.navCtrl.setRoot('IlanlarimPage');
-        }, function (err) {
-            // console.log("Not already authorized");
-            _this.loading.dismiss();
-        });
+    IlanFiltrelePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad IlanFiltrelePage' + this.ilanlarim);
     };
-    LoginPage.prototype.login = function () {
-        var _this = this;
-        this.showLoader('Giriş Yapılıyor...');
-        var credentials = {
-            email: this.email,
-            password: this.password
-        };
-        console.log(JSON.stringify(credentials) + 'credentials');
-        this.authService.login(credentials).then(function (result) {
-            _this.events.publish('login:event');
-            console.log(JSON.stringify(result) + "result");
-            _this.loading.dismiss();
-            _this.navCtrl.setRoot('IlanlarimPage');
-        }, function (err) {
-            _this.loading.dismiss();
-            console.log(JSON.stringify(err._body) + 'asdasd');
-            // let msg = JSON.parse(err._body);
-        });
+    IlanFiltrelePage.prototype.filtrele = function () {
+        console.log(this.sirala + 'kapatfiltre');
+        console.log(JSON.stringify(this.detayAra) + 'kapatfiltre');
+        // console.log(JSON.stringify(this.sirala)+'parsefiltre');
+        this.events.publish('ilan:filtered' + this.ilanlarim);
+        this.navCtrl.pop();
     };
-    LoginPage.prototype.launchSignup = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__signup_signup__["a" /* SignupPage */]);
+    IlanFiltrelePage.prototype.clear = function () {
+        console.log(JSON.stringify(this.detayAra) + 'clearfiltre');
+        this.events.publish('ilan:filtered', 'clear');
+        this.navCtrl.pop();
     };
-    LoginPage.prototype.launchFirmaSignup = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__["a" /* SignupFirmaPage */]);
-    };
-    LoginPage.prototype.resetPass = function () {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__reset_reset__["a" /* ResetPage */]);
-    };
-    LoginPage.prototype.showLoader = function (message) {
-        this.loading = this.loadingCtrl.create({
-            content: message
-        });
-        this.loading.present();
-    };
-    LoginPage = __decorate([
+    IlanFiltrelePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/'<!--\n  Generated template for the Login page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>İşveren Giriş</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n  <form #heroForm="ngForm">\n\n            <ion-list>\n\n              <ion-item>\n                <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n                <ion-input [(ngModel)]="email" placeholder="Email" type="email" #name="ngModel" name="name"\n                required pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>\n              </ion-item>\n              <ion-item no-lines *ngIf="name.errors">\n                  <p style="color:red;">Lütfen geçerli email giriniz</p>\n              </ion-item>\n              <ion-item>\n                <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n                <ion-input [(ngModel)]="password" placeholder="Şifre" type="password" #pass="ngModel" name="pass" required></ion-input>\n              </ion-item>\n            </ion-list>\n\n            <button ion-button block icon-left (click)="login()" color="primary"  [disabled]="!heroForm.form.valid">\n              <ion-icon name="log-in"></ion-icon>\n              GİrİŞ</button>\n          </form>\n\n    <ion-row>\n        <ion-col text-center>\n            <button ion-button round icon-left align="center" color="secondary" (click)="launchSignup()">\n              <ion-icon name="person-add"></ion-icon>\n              Hesap OluŞtur</button>\n        </ion-col>\n        <ion-col text-center>\n            <button ion-button round icon-left align="center" color="yellow" (click)="launchFirmaSignup()">\n              <ion-icon name="power"></ion-icon>\n              Fİrma OluŞtur</button>\n        </ion-col>\n        <ion-col text-center>\n          <button ion-button clear align="center" color="danger"  (click)="resetPass()">Şİfremİ unuttum</button>\n        </ion-col>\n    </ion-row>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/,
+            selector: 'page-ilan-filtrele',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-filtrele\ilan-filtrele.html"*/'<!--\n\n  Generated template for the IlanFiltrelePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>İlan Filtrele</ion-title>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <div *ngIf="detayAra">\n\n  <!-- <ion-item-group>\n\n    <ion-item-divider color="light"></ion-item-divider>\n\n  <ion-item>\n\n  <ion-label color="secondary">Sırala:</ion-label>\n\n  <ion-select [(ngModel)]="sirala" cancelText="İptal" okText="Tamam">\n\n    <ion-option value=\'{}\'>En Uygun</ion-option>\n\n    <ion-option value=\'{"olusturmaTarih" :-1}\'>En Erken</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n</ion-item-group> -->\n\n\n\n<!-- <ion-item-group>\n\n  <ion-item-divider color="light"></ion-item-divider> -->\n\n  <ion-item>\n\n  <ion-label floating color="primary">İl</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.il" interface="popover" cancelText="İptal" okText="Tamam">\n\n    <!-- <ion-option value=\'Konumum\'>Konumum</ion-option> -->\n\n    <ion-option *ngFor="let item of sehirler" value=\'{{item.sehir}}\'>{{item.sehir}}</ion-option>\n\n\n\n    <!-- <ion-option value=\'İstanbul\'>İstanbul</ion-option>\n\n    <ion-option value=\'Ankara\'>Ankara</ion-option>\n\n    <ion-option value=\'Kahramanmaraş\'>Kahramanmaraş</ion-option> -->\n\n  </ion-select>\n\n  </ion-item>\n\n  <div [hidden]="ilanlarim">\n\n<ion-item>\n\n    <ion-label floating color="primary">İlan Sahibi</ion-label>\n\n    <ion-input type="text" [(ngModel)]="detayAra.olusturan"></ion-input>\n\n</ion-item>\n\n</div>\n\n<ion-item>\n\n  <ion-label floating color="primary">Tecrübe</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.tecrube" multiple="true" cancelText="İptal" okText="Tamam">\n\n    <!-- <ion-option value=\'\' selected="true">Farketmez</ion-option> -->\n\n    <ion-option value=\'Az Tecrübeli (Junior)\'>Az Tecrübeli (Junior)</ion-option>\n\n    <ion-option value=\'Orta Tecrübeli (Midlevel)\'>Orta Tecrübeli (Midlevel)</ion-option>\n\n    <ion-option value=\'Çok Tecrübeli (Senior)\'>Çok Tecrübeli (Senior)</ion-option>\n\n    <ion-option value=\'Yönetici (Manager)\'>Yönetici (Manager)</ion-option>\n\n    <ion-option value=\'Stajyer\'>Stajyer</ion-option>\n\n    <ion-option value=\'Hizmet Personeli - İşçi\'>Hizmet Personeli - İşçi</ion-option>\n\n  </ion-select>\n\n</ion-item>\n\n<ion-item>\n\n<ion-label floating color="primary">Eğitim</ion-label>\n\n<ion-select [(ngModel)]="detayAra.egitim" multiple="true" cancelText="İptal" okText="Tamam">\n\n  <ion-option value=\'Lise\'>Lise</ion-option>\n\n  <ion-option value=\'Lisans\'>Lisans</ion-option>\n\n  <ion-option value=\'Yüksek Lisans - Doktora\'>Yüksek Lisans - Doktora</ion-option>\n\n</ion-select>\n\n</ion-item>\n\n\n\n <!-- </ion-item-group> -->\n\n\n\n <ion-row>\n\n <ion-col>\n\n <button ion-button block icon-left color="secondary"  (click)="clear()">\n\n   <ion-icon name="backspace"></ion-icon>\n\n   Temizle</button>\n\n </ion-col>\n\n <ion-col>\n\n <button ion-button block icon-left color="primary" (click)="filtrele()">\n\n   <ion-icon name="search"></ion-icon>\n\n   Filtrele</button>\n\n </ion-col>\n\n</ion-row>\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-filtrele\ilan-filtrele.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__["a" /* UserSerProvider */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
-    ], LoginPage);
-    return LoginPage;
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__["a" /* IlanSerProvider */]])
+    ], IlanFiltrelePage);
+    return IlanFiltrelePage;
 }());
 
-//# sourceMappingURL=login.js.map
+//# sourceMappingURL=ilan-filtrele.js.map
 
 /***/ }),
 
-/***/ 371:
+/***/ 363:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OzgecmisFiltrelePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+/**
+ * Generated class for the OzgecmisFiltrelePage page.
+ *
+ * See http://ionicframework.com/docs/components/#navigation for more info
+ * on Ionic pages and navigation.
+ */
+var OzgecmisFiltrelePage = /** @class */ (function () {
+    function OzgecmisFiltrelePage(navCtrl, navParams, viewCtrl, events) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
+        this.events = events;
+        this.sehirler = [
+            { "sehir": "İstanbul" }, { "sehir": "Ankara" }, { "sehir": "İzmir" }, { "sehir": "Adana" }, { "sehir": "Adıyaman" }, { "sehir": "Afyonkarahisar" },
+            { "sehir": "Ağrı" }, { "sehir": "Aksaray" }, { "sehir": "Amasya" }, { "sehir": "Antalya" }, { "sehir": "Ardahan" }, { "sehir": "Artvin" },
+            { "sehir": "Aydın" }, { "sehir": "Balıkesir" }, { "sehir": "Bartın" }, { "sehir": "Batman" }, { "sehir": "Bayburt" }, { "sehir": "Bilecik" },
+            { "sehir": "Bingöl" }, { "sehir": "Bitlis" }, { "sehir": "Bolu" }, { "sehir": "Burdur" }, { "sehir": "Bursa" }, { "sehir": "Çanakkale" }, { "sehir": "Çankırı" },
+            { "sehir": "Çorum" }, { "sehir": "Denizli" }, { "sehir": "Diyarbakır" }, { "sehir": "Düzce" }, { "sehir": "Edirne" }, { "sehir": "Elazığ" },
+            { "sehir": "Erzincan" }, { "sehir": "Erzurum" }, { "sehir": "Eskişehir" }, { "sehir": "Gaziantep" }, { "sehir": "Giresun" }, { "sehir": "Gümüşhane" },
+            { "sehir": "Hakkari" }, { "sehir": "Hatay" }, { "sehir": "Iğdır" }, { "sehir": "Isparta" }, { "sehir": "Kahramanmaraş" }, { "sehir": "Karabük" },
+            { "sehir": "Karaman" }, { "sehir": "Kars" }, { "sehir": "Kastamonu" }, { "sehir": "Kayseri" }, { "sehir": "Kırıkkale" }, { "sehir": "Kırklareli" },
+            { "sehir": "Kırşehir" }, { "sehir": "Kilis" }, { "sehir": "Kocaeli" }, { "sehir": "Konya" }, { "sehir": "Kütahya" }, { "sehir": "Malatya" },
+            { "sehir": "Manisa" }, { "sehir": "Mardin" }, { "sehir": "Mersin" }, { "sehir": "Muğla" }, { "sehir": "Muş" }, { "sehir": "Nevşehir" },
+            { "sehir": "Niğde" }, { "sehir": "Ordu" }, { "sehir": "Osmaniye" }, { "sehir": "Rize" }, { "sehir": "Sakarya" }, { "sehir": "Samsun" },
+            { "sehir": "Siirt" }, { "sehir": "Sinop" }, { "sehir": "Sivas" }, { "sehir": "Şırnak" }, { "sehir": "Tekirdağ" }, { "sehir": "Tokat" },
+            { "sehir": "Trabzon" }, { "sehir": "Tunceli" }, { "sehir": "Şanlıurfa" }, { "sehir": "Uşak" }, { "sehir": "Van" }, { "sehir": "Yalova" },
+            { "sehir": "Yozgat" }, { "sehir": "Zonguldak" }
+        ];
+        this.detayAra = navParams.get('detayAra');
+        console.log(JSON.stringify(this.detayAra) + 'detay');
+        this.sirala = navParams.get('sirala');
+        this.page = this.navParams.get('page');
+    }
+    OzgecmisFiltrelePage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad OzgecmisFiltrelePage');
+    };
+    OzgecmisFiltrelePage.prototype.filtrele = function () {
+        console.log(this.sirala + 'kapatfiltre');
+        console.log(JSON.stringify(this.detayAra) + 'kapatfiltre');
+        // console.log(JSON.stringify(this.sirala)+'parsefiltre');
+        this.events.publish('ozgecmis:filtered_' + this.navParams.get('page'));
+        this.navCtrl.pop();
+    };
+    OzgecmisFiltrelePage.prototype.clear = function () {
+        console.log(JSON.stringify(this.detayAra) + 'clearfiltre');
+        this.events.publish('ozgecmis:filtered_' + this.navParams.get('page'), 'clear');
+        this.navCtrl.pop();
+    };
+    OzgecmisFiltrelePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-ozgecmis-filtrele',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ozgecmis-filtrele\ozgecmis-filtrele.html"*/'<!--\n\n  Generated template for the OzgecmisFiltrelePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Özgeçmiş Filtrele</ion-title>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <div *ngIf="detayAra">\n\n    <ion-item>\n\n      <ion-label floating color="primary">Özgeçmiş Sahibi</ion-label>\n\n      <ion-input type="text" [(ngModel)]="detayAra.isim"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating color="primary">Ünvan / Son Pozisyon</ion-label>\n\n        <ion-input  type="text" [(ngModel)]="detayAra.unvan"></ion-input>\n\n    </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label floating color="primary">İl</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.sehir" interface="popover" cancelText="İptal" okText="Tamam">\n\n    <!-- <ion-option value=\'Konumum\'>Konumum</ion-option> -->\n\n    <ion-option *ngFor="let item of sehirler" value=\'{{item.sehir}}\'>{{item.sehir}}</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label floating color="primary">Eğitim</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.egitimdurum" cancelText="İptal" okText="Tamam">\n\n    <ion-option value="1">İlköğretim</ion-option>\n\n    <ion-option value="2">Lise</ion-option>\n\n    <ion-option value="3">Lisans</ion-option>\n\n    <ion-option value="4">Yüksek Lisans</ion-option>\n\n    <ion-option value="5">Doktora</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label [hidden]="page != \'tüm\'" floating color="primary">Özgeçmiş Çeşidi</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.tumfirma" cancelText="İptal" okText="Tamam">\n\n    <ion-option value="f">Sadece Firma Özgeçmişleri</ion-option>\n\n    <ion-option value="t">Tüm Özgeçmişler</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n      <ion-label floating color="primary">Minimum Tecrübe (yıl)</ion-label>\n\n      <ion-input  type="number" [(ngModel)]="detayAra.yilTecrube"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <ion-label floating color="primary">Minimum Doğum Tarihi</ion-label>\n\n    <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="detayAra.dogumTarihi" cancelText="İptal" doneText="Tamam">\n\n    </ion-datetime>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n      <ion-label stacked color="primary">Bilgisayar Teknolojileri</ion-label>\n\n      <ion-input  type="text" placeholder="Örn: Excel,Sql" [(ngModel)]="detayAra.bilgisayar"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n      <ion-label floating color="primary">Yabancı Dil:</ion-label>\n\n      <ion-input  type="text" [(ngModel)]="detayAra.dil"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n  <ion-label floating color="primary">Dil Seviye</ion-label>\n\n  <ion-select [(ngModel)]="detayAra.seviye" cancelText="İptal" okText="Tamam">\n\n    <ion-option value="1">Başlangıç</ion-option>\n\n    <ion-option value="2">Orta</ion-option>\n\n    <ion-option value="3">İyi</ion-option>\n\n    <ion-option value="4">Çok İyi</ion-option>\n\n    <ion-option value="5">Mükemmel</ion-option>\n\n  </ion-select>\n\n  </ion-item>\n\n\n\n  <ion-row>\n\n  <ion-col>\n\n  <button ion-button block icon-left color="secondary"  (click)="clear()">\n\n   <ion-icon name="backspace"></ion-icon>\n\n   Temizle</button>\n\n  </ion-col>\n\n  <ion-col>\n\n  <button ion-button block icon-left color="primary" (click)="filtrele()">\n\n   <ion-icon name="search"></ion-icon>\n\n   Filtrele</button>\n\n  </ion-col>\n\n  </ion-row>\n\n  </div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ozgecmis-filtrele\ozgecmis-filtrele.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    ], OzgecmisFiltrelePage);
+    return OzgecmisFiltrelePage;
+}());
+
+//# sourceMappingURL=ozgecmis-filtrele.js.map
+
+/***/ }),
+
+/***/ 367:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(372);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(376);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(368);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(372);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1024,38 +1106,38 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 376:
+/***/ 372:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(37);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(425);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ilan_filtrele_ilan_filtrele__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_reset_reset__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_signup_firma_signup_firma__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(268);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(269);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_ilan_ser__ = __webpack_require__(49);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_ozgecmis_ser__ = __webpack_require__(70);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_user_ser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_aktivite_ser__ = __webpack_require__(426);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_http__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_storage__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__cloudinary_angular_4_x__ = __webpack_require__(427);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(421);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ilan_filtrele_ilan_filtrele__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_reset_reset__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_signup_firma_signup_firma__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__providers_ilan_ser__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__providers_ozgecmis_ser__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_user_ser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_aktivite_ser__ = __webpack_require__(422);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_storage__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__cloudinary_angular_4_x__ = __webpack_require__(423);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__cloudinary_angular_4_x___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__cloudinary_angular_4_x__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_cloudinary_core__ = __webpack_require__(429);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_cloudinary_core__ = __webpack_require__(425);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19_cloudinary_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19_cloudinary_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_camera__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_deeplinks__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_social_sharing__ = __webpack_require__(164);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_facebook__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_angular_linkedin_sdk__ = __webpack_require__(432);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__ionic_native_camera__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_deeplinks__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_social_sharing__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_facebook__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_angular_linkedin_sdk__ = __webpack_require__(428);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_angular_linkedin_sdk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24_angular_linkedin_sdk__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1123,13 +1205,13 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/ilan-filtrele/ilan-filtrele.module#IlanFiltrelePageModule', name: 'IlanFiltrelePage', segment: 'ilan-filtrele', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] }
                     ]
                 }),
@@ -1182,19 +1264,19 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 425:
+/***/ 421:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(268);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(269);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_deeplinks__ = __webpack_require__(270);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user_ser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(262);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_deeplinks__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_login_login__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user_ser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(44);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1340,14 +1422,14 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 426:
+/***/ 422:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AktiviteSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1383,18 +1465,18 @@ var AktiviteSerProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 49:
+/***/ 48:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanSerProvider; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__user_ser__ = __webpack_require__(24);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_signup__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_reset__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(44);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1410,183 +1492,103 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-/*
-  Generated class for the IlanSerProvider provider.
 
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
-var IlanSerProvider = /** @class */ (function () {
-    function IlanSerProvider(http, authService, toastCtrl, loadingCtrl, storage) {
-        this.http = http;
+// import { PassResetPage } from '../pass-reset/pass-reset';
+var LoginPage = /** @class */ (function () {
+    function LoginPage(navCtrl, authService, loadingCtrl, storage, events) {
+        this.navCtrl = navCtrl;
         this.authService = authService;
-        this.toastCtrl = toastCtrl;
         this.loadingCtrl = loadingCtrl;
         this.storage = storage;
-        // url : string = 'https://serverisgucvar.herokuapp.com/api/ilanlar/';
-        this.url = 'http://127.0.0.1:8080/api/ilanlar/';
-        // ozgecmis: any;
-        this.sehirler = [
-            { "sehir": "İstanbul" }, { "sehir": "Ankara" }, { "sehir": "İzmir" }, { "sehir": "Adana" }, { "sehir": "Adıyaman" }, { "sehir": "Afyonkarahisar" },
-            { "sehir": "Ağrı" }, { "sehir": "Aksaray" }, { "sehir": "Amasya" }, { "sehir": "Antalya" }, { "sehir": "Ardahan" }, { "sehir": "Artvin" },
-            { "sehir": "Aydın" }, { "sehir": "Balıkesir" }, { "sehir": "Bartın" }, { "sehir": "Batman" }, { "sehir": "Bayburt" }, { "sehir": "Bilecik" },
-            { "sehir": "Bingöl" }, { "sehir": "Bitlis" }, { "sehir": "Bolu" }, { "sehir": "Burdur" }, { "sehir": "Bursa" }, { "sehir": "Çanakkale" }, { "sehir": "Çankırı" },
-            { "sehir": "Çorum" }, { "sehir": "Denizli" }, { "sehir": "Diyarbakır" }, { "sehir": "Düzce" }, { "sehir": "Edirne" }, { "sehir": "Elazığ" },
-            { "sehir": "Erzincan" }, { "sehir": "Erzurum" }, { "sehir": "Eskişehir" }, { "sehir": "Gaziantep" }, { "sehir": "Giresun" }, { "sehir": "Gümüşhane" },
-            { "sehir": "Hakkari" }, { "sehir": "Hatay" }, { "sehir": "Iğdır" }, { "sehir": "Isparta" }, { "sehir": "Kahramanmaraş" }, { "sehir": "Karabük" },
-            { "sehir": "Karaman" }, { "sehir": "Kars" }, { "sehir": "Kastamonu" }, { "sehir": "Kayseri" }, { "sehir": "Kırıkkale" }, { "sehir": "Kırklareli" },
-            { "sehir": "Kırşehir" }, { "sehir": "Kilis" }, { "sehir": "Kocaeli" }, { "sehir": "Konya" }, { "sehir": "Kütahya" }, { "sehir": "Malatya" },
-            { "sehir": "Manisa" }, { "sehir": "Mardin" }, { "sehir": "Mersin" }, { "sehir": "Muğla" }, { "sehir": "Muş" }, { "sehir": "Nevşehir" },
-            { "sehir": "Niğde" }, { "sehir": "Ordu" }, { "sehir": "Osmaniye" }, { "sehir": "Rize" }, { "sehir": "Sakarya" }, { "sehir": "Samsun" },
-            { "sehir": "Siirt" }, { "sehir": "Sinop" }, { "sehir": "Sivas" }, { "sehir": "Şırnak" }, { "sehir": "Tekirdağ" }, { "sehir": "Tokat" },
-            { "sehir": "Trabzon" }, { "sehir": "Tunceli" }, { "sehir": "Şanlıurfa" }, { "sehir": "Uşak" }, { "sehir": "Van" }, { "sehir": "Yalova" },
-            { "sehir": "Yozgat" }, { "sehir": "Zonguldak" }
-        ];
-        console.log('Hello IlanSerProvider Provider');
+        this.events = events;
+        console.log("loginpage");
     }
-    IlanSerProvider.prototype.getIlanlar = function (searchTerm, searchKayit, orderBy, skip, limit) {
+    LoginPage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Authorization', this.authService.token);
-        var order = JSON.parse(orderBy);
-        console.log(JSON.stringify(order) + 'order service');
-        console.log(order + 'order service string');
-        return new Promise(function (resolve, reject) {
-            var uri = encodeURI(_this.url + ("?term=" + searchTerm + "&kayit=" + JSON.stringify(searchKayit) + "&orderBy=" + JSON.stringify(order) + "&skip=" + skip + "&limit=" + limit));
-            _this.http.get(uri, { headers: headers })
-                .map(function (res) { return res.json(); })
-                .subscribe(function (data) {
-                // console.log(JSON.stringify(data));
-                resolve(data);
-            }, function (err) {
-                // reject(err);
-                _this.presentToast('İlanlar alınamadı. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
-            });
+        console.log('ionViewDidLoad LoginPage');
+        this.storage.get('user')
+            .then(function (user) {
+            _this.email = user.email;
+            _this.password = user.password;
+            console.log("storage user");
+        })
+            .catch(function (err) {
+            console.log("hata");
+            return;
+        });
+        this.showLoader('Bilgiler yükleniyor...');
+        //Check if already authenticated
+        this.authService.checkAuthentication().then(function (res) {
+            console.log("Already authorized");
+            _this.loading.dismiss();
+            if (_this.navCtrl.canGoBack())
+                return;
+            else
+                _this.navCtrl.setRoot('IlanlarimPage');
+        }, function (err) {
+            // console.log("Not already authorized");
+            _this.loading.dismiss();
         });
     };
-    IlanSerProvider.prototype.updateIlan = function (kayit) {
+    LoginPage.prototype.login = function () {
         var _this = this;
-        this.showLoader();
-        return new Promise(function (resolve, reject) {
-            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Authorization', _this.authService.token);
-            console.log(JSON.stringify(kayit) + 'order service add ilan');
-            _this.http.put(_this.url + kayit._id, JSON.stringify(kayit), { headers: headers })
-                .map(function (res) { return res.json(); })
-                .subscribe(function (res) {
-                // this.ozgecmis = kayit;
-                // this.storage.set('ozgecmis', kayit);
-                console.log(JSON.stringify(res) + "updateall");
-                _this.loading.dismiss();
-                _this.presentToast('İlan güncellendi!');
-                resolve(res);
-            }, function (err) {
-                // reject(err);
-                _this.loading.dismiss();
-                _this.presentToast('İlan güncellenemedi. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
-            });
+        this.showLoader('Giriş Yapılıyor...');
+        var credentials = {
+            email: this.email,
+            password: this.password
+        };
+        console.log(JSON.stringify(credentials) + 'credentials');
+        this.authService.login(credentials).then(function (result) {
+            console.log(JSON.stringify(result) + "result");
+            _this.loading.dismiss();
+            _this.navCtrl.setRoot('IlanlarimPage');
+        }, function (err) {
+            _this.loading.dismiss();
+            console.log(JSON.stringify(err._body) + 'asdasd');
+            // let msg = JSON.parse(err._body);
         });
     };
-    IlanSerProvider.prototype.getIlan = function (ilanId) {
-        var _this = this;
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Authorization', this.authService.token);
-        return new Promise(function (resolve, reject) {
-            _this.http.get(_this.url + ilanId, { headers: headers })
-                .map(function (res) { return res.json(); })
-                .subscribe(function (data) {
-                // this.ozgecmis = data;
-                // this.storage.set('ozgecmis', data);
-                // console.log(JSON.stringify(data)+"data123");
-                resolve(data);
-            }, function (err) {
-                // reject(err);
-                _this.presentToast('İlan alınamadı. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
-            });
-        });
+    LoginPage.prototype.launchSignup = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__signup_signup__["a" /* SignupPage */]);
     };
-    IlanSerProvider.prototype.createIlan = function (ilan) {
-        var _this = this;
-        this.showLoader();
-        return new Promise(function (resolve, reject) {
-            var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-            headers.append('Content-Type', 'application/json');
-            headers.append('Authorization', _this.authService.token);
-            _this.http.post(_this.url, JSON.stringify(ilan), { headers: headers })
-                .map(function (res) { return res.json(); })
-                .subscribe(function (data) {
-                // this.currentUser = details;
-                _this.loading.dismiss();
-                _this.presentToast('İlan eklendi!');
-                resolve(data);
-            }, function (err) {
-                _this.loading.dismiss();
-                _this.presentToast('İlan eklenemedi. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
-                reject(err);
-            });
-        });
+    LoginPage.prototype.launchFirmaSignup = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__["a" /* SignupFirmaPage */]);
     };
-    IlanSerProvider.prototype.presentToast = function (message) {
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: 4000,
-            position: 'top',
-            showCloseButton: true,
-            closeButtonText: 'OK'
-        });
-        toast.onDidDismiss(function () {
-            // console.log('Dismissed toast');
-        });
-        toast.present();
+    LoginPage.prototype.resetPass = function () {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_5__reset_reset__["a" /* ResetPage */]);
     };
-    IlanSerProvider.prototype.getUsers = function (id) {
-        var _this = this;
-        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
-        headers.append('Authorization', this.authService.token);
-        return new Promise(function (resolve, reject) {
-            _this.http.get(_this.url + 'getusers/' + id, { headers: headers })
-                .map(function (res) { return res.json(); })
-                .subscribe(function (data) {
-                console.log(JSON.stringify(data) + "data123");
-                resolve(data);
-            }, function (err) {
-                // reject(err);
-                _this.presentToast('Kullanıcı listesi alınamadı. Bağlantı problemi olabilir. Lütfen tekrar deneyin!');
-            });
-        });
-    };
-    IlanSerProvider.prototype.showLoader = function () {
+    LoginPage.prototype.showLoader = function (message) {
         this.loading = this.loadingCtrl.create({
-            content: 'İşlem yapılıyor...'
+            content: message
         });
         this.loading.present();
     };
-    IlanSerProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
-    ], IlanSerProvider);
-    return IlanSerProvider;
+    LoginPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-login',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/'<!--\n  Generated template for the Login page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>İşveren Giriş</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n  <form #heroForm="ngForm">\n\n            <ion-list>\n\n              <ion-item>\n                <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n                <ion-input [(ngModel)]="email" placeholder="Email" type="email" #name="ngModel" name="name"\n                required pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>\n              </ion-item>\n              <ion-item no-lines *ngIf="name.errors">\n                  <p style="color:red;">Lütfen geçerli email giriniz</p>\n              </ion-item>\n              <ion-item>\n                <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n                <ion-input [(ngModel)]="password" placeholder="Şifre" type="password" #pass="ngModel" name="pass" required></ion-input>\n              </ion-item>\n            </ion-list>\n\n            <button ion-button block icon-left (click)="login()" color="primary"  [disabled]="!heroForm.form.valid">\n              <ion-icon name="log-in"></ion-icon>\n              GİrİŞ</button>\n          </form>\n\n    <ion-row>\n        <ion-col text-center>\n            <button ion-button round icon-left align="center" color="secondary" (click)="launchSignup()">\n              <ion-icon name="person-add"></ion-icon>\n              Hesap OluŞtur</button>\n        </ion-col>\n        <ion-col text-center>\n            <button ion-button round icon-left align="center" color="yellow" (click)="launchFirmaSignup()">\n              <ion-icon name="power"></ion-icon>\n              Fİrma OluŞtur</button>\n        </ion-col>\n        <ion-col text-center>\n          <button ion-button clear align="center" color="danger"  (click)="resetPass()">Şİfremİ unuttum</button>\n        </ion-col>\n    </ion-row>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__["a" /* UserSerProvider */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
+    ], LoginPage);
+    return LoginPage;
 }());
 
-//# sourceMappingURL=ilan-ser.js.map
+//# sourceMappingURL=login.js.map
 
 /***/ }),
 
-/***/ 70:
+/***/ 91:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OzgecmisSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(19);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(28);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__user_ser__ = __webpack_require__(24);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__user_ser__ = __webpack_require__(32);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1728,5 +1730,5 @@ var OzgecmisSerProvider = /** @class */ (function () {
 
 /***/ })
 
-},[371]);
+},[367]);
 //# sourceMappingURL=main.js.map
