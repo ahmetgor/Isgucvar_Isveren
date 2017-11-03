@@ -637,17 +637,17 @@ var IlanDetayPage = /** @class */ (function () {
         });
     };
     IlanDetayPage.prototype.shareFace = function () {
-        var options = {
-            method: "share",
-            href: window.location.origin + '/#/ilandetay/' + this.ilan._id,
-            caption: "Such caption, very feed.",
-            description: "Much description"
-            // picture: this.ilan.resim
-        };
+        //     let options = 	{
+        //   method: "share",
+        // 	href: window.location.origin+'/#/ilandetay/'+this.ilan._id,
+        // 	caption: "Such caption, very feed.",
+        // 	description: "Much description"
+        // 	// picture: this.ilan.resim
+        // }
         console.log("share face");
         FB.ui({
             method: 'share',
-            href: window.location.origin + '/#/ilandetay/' + this.ilan._id,
+            href: 'https://isgucvarisarayan.herokuapp.com' + '/#/detay/' + this.ilan._id,
         }, function (response) { });
     };
     IlanDetayPage.prototype.share = function () {
@@ -656,7 +656,7 @@ var IlanDetayPage = /** @class */ (function () {
                 message: "İşgüçvar ilanına göz atın:\n\n",
                 // subject: 'the subject', // fi. for email
                 // files: [this.ilan.resim], // an array of filenames either locally or remotely
-                url: window.location.origin + "/#/ilandetay/" + this.ilan._id,
+                url: 'https://isgucvarisarayan.herokuapp.com' + "/#/detay/" + this.ilan._id,
                 chooserTitle: 'Uygulama seçin:' // Android only, you can override the default share sheet title
             };
             this.socialSharing.shareWithOptions(options)
@@ -669,19 +669,21 @@ var IlanDetayPage = /** @class */ (function () {
         else
             this.presentActionSheet();
     };
-    IlanDetayPage.prototype.shareLinked = function () {
-        var payload = {
-            "comment": "Yeni bir İşgüçvar ilanı!" + window.location.origin + '/#/ilandetay/' + this.ilan._id,
-            "visibility": {
-                "code": "anyone"
-            }
-        };
-        IN.API.Raw("/people/~/shares?format=json")
-            .method("POST")
-            .body(JSON.stringify(payload))
-            .result(function (onSuccess) { })
-            .error(function (onError) { });
-    };
+    // public shareLinked(){
+    //
+    // var payload = {
+    //   "comment": "Yeni bir İşgüçvar ilanı!" + window.location.origin+'/#/ilandetay/'+this.ilan._id,
+    //   "visibility": {
+    //     "code": "anyone"
+    //   }
+    // };
+    //
+    // IN.API.Raw("/people/~/shares?format=json")
+    //   .method("POST")
+    //   .body(JSON.stringify(payload))
+    //   .result((onSuccess) =>{})
+    //   .error((onError) =>{});
+    //   }
     IlanDetayPage.prototype.presentActionSheet = function () {
         var _this = this;
         var actionSheet = this.actionSheetCtrl.create({
@@ -693,14 +695,16 @@ var IlanDetayPage = /** @class */ (function () {
                     handler: function () {
                         _this.shareFace();
                     }
-                }, {
-                    text: 'LinkedIn',
-                    icon: 'logo-linkedin',
-                    handler: function () {
-                        console.log('Archive clicked');
-                        _this.shareLinked();
-                    }
-                }, {
+                },
+                // {
+                //   text: 'LinkedIn',
+                //   icon: 'logo-linkedin',
+                //   handler: () => {
+                //     console.log('Archive clicked');
+                //     this.shareLinked();
+                //   }
+                // },
+                {
                     text: 'İptal',
                     role: 'cancel',
                     icon: 'close',
@@ -736,12 +740,10 @@ var IlanDetayPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'page-ilan-detay',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-detay\ilan-detay.html"*/'<!--\n\n  Generated template for the IlanDetayPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n  <script type="in/Login"></script>\n\n\n\n  <ion-navbar>\n\n    <ion-buttons end>\n\n  <button ion-button icon-only (click)="share()">\n\n    <ion-icon name="share"></ion-icon>\n\n  </button>\n\n</ion-buttons>\n\n    <ion-title>İlan Detayı</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n\n\n  <div *ngIf="ilan && ilan.baslik">\n\n\n\n  <ion-item text-wrap no-lines class="item">\n\n    <ion-thumbnail item-left>\n\n      <img class="img-circle" [src]="ilan.firma.resim">\n\n    </ion-thumbnail>\n\n\n\n    <ion-row>\n\n    <ion-col>\n\n    <h2>{{ilan.baslik}}</h2>\n\n    </ion-col>\n\n    </ion-row>\n\n\n\n    <ion-row>\n\n      <ion-col>\n\n    <div class="firma"><h4>{{ilan.firma.firma}}</h4></div>\n\n    </ion-col>\n\n    <ion-col>\n\n      <h4 align="right" [class.my-class]="getDays(ilan.olusurmaTarih) < 10">\n\n        <ion-icon name="calendar"></ion-icon>\n\n        {{getDays(ilan.olusurmaTarih)}} gün\n\n      </h4>\n\n    </ion-col>\n\n    </ion-row>\n\n\n\n    <ion-row>\n\n      <ion-col col-auto>\n\n        <ion-icon name="pin"></ion-icon>\n\n          {{ilan.il}}\n\n\n\n    </ion-col>\n\n    <ion-col>\n\n      <p align="right">\n\n    <ion-icon name="briefcase"></ion-icon>\n\n    {{ilan.tip}}\n\n  </p>\n\n</ion-col>\n\n  </ion-row>\n\n</ion-item>\n\n<!-- <ion-toolbar> -->\n\n<button ion-button block icon-left color="primary" (click)="toOzgecmis()">\n\n  <ion-icon name="person"></ion-icon>\n\n  Başvuranlar</button>\n\n<!-- </ion-toolbar> -->\n\n\n\n  <!-- <div *ngIf="ilan"> -->\n\n\n\n  <ion-card>\n\n  <ion-card-header>\n\n    <b>Açıklama</b>\n\n  </ion-card-header>\n\n  <ion-card-content style="white-space: pre-wrap;">{{ilan.aciklama}}\n\n  </ion-card-content>\n\n</ion-card>\n\n\n\n<ion-card>\n\n<ion-card-header>\n\n  <b>Detaylar</b>\n\n</ion-card-header>\n\n<ion-card-content>\n\n  <!-- <ion-list>\n\n    <ion-item> -->\n\n  <p><b>Tecrübe: </b> {{ilan.tecrube}}</p>\n\n    <!-- </ion-item>\n\n    <ion-item> -->\n\n      <p><b>Eğitim: </b> {{ilan.egitim}}</p>\n\n    <!-- </ion-item>\n\n  </ion-list> -->\n\n  <p><b>Askerlik: </b> {{ilan.askerlik}}</p>\n\n  <p><b>Ehliyet: </b> {{ilan.ehliyet}}</p>\n\n  <p><b>İlan Tarihi: </b> {{ilan.olusurmaTarih}}</p>\n\n  <p><b>İlan No: </b> {{ilan.id}}</p>\n\n</ion-card-content>\n\n</ion-card>\n\n\n\n<button ion-button block icon-left color="secondary" (click)="guncelleIlan()">\n\n  <ion-icon name="create"></ion-icon>\n\n  Güncelle</button>\n\n\n\n</div>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-detay\ilan-detay.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */],
-            __WEBPACK_IMPORTED_MODULE_4__providers_ilan_ser__["a" /* IlanSerProvider */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_6__ionic_native_social_sharing__["a" /* SocialSharing */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */], __WEBPACK_IMPORTED_MODULE_7__ionic_native_facebook__["a" /* Facebook */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__providers_ilan_ser__["a" /* IlanSerProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__providers_ilan_ser__["a" /* IlanSerProvider */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__ionic_native_social_sharing__["a" /* SocialSharing */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__ionic_native_social_sharing__["a" /* SocialSharing */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]) === "function" && _h || Object, typeof (_j = typeof __WEBPACK_IMPORTED_MODULE_7__ionic_native_facebook__["a" /* Facebook */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__ionic_native_facebook__["a" /* Facebook */]) === "function" && _j || Object])
     ], IlanDetayPage);
     return IlanDetayPage;
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 }());
 
 //# sourceMappingURL=ilan-detay.js.map
