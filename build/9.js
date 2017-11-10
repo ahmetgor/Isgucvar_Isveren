@@ -5,10 +5,10 @@ webpackJsonp([9],{
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupPageModule", function() { return SignupPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResetPageModule", function() { return ResetPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__signup__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reset__ = __webpack_require__(161);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,26 +18,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var SignupPageModule = /** @class */ (function () {
-    function SignupPageModule() {
+var ResetPageModule = /** @class */ (function () {
+    function ResetPageModule() {
     }
-    SignupPageModule = __decorate([
+    ResetPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */],
+                __WEBPACK_IMPORTED_MODULE_2__reset__["a" /* ResetPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__reset__["a" /* ResetPage */]),
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__signup__["a" /* SignupPage */]
+                __WEBPACK_IMPORTED_MODULE_2__reset__["a" /* ResetPage */]
             ]
         })
-    ], SignupPageModule);
-    return SignupPageModule;
+    ], ResetPageModule);
+    return ResetPageModule;
 }());
 
-//# sourceMappingURL=signup.module.js.map
+//# sourceMappingURL=reset.module.js.map
 
 /***/ })
 

@@ -1,14 +1,14 @@
 webpackJsonp([12],{
 
-/***/ 713:
+/***/ 712:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OzgecmisFiltrelePageModule", function() { return OzgecmisFiltrelePageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IlanFiltrelePageModule", function() { return IlanFiltrelePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ozgecmis_filtrele__ = __webpack_require__(363);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ilan_filtrele__ = __webpack_require__(364);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,26 +18,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var OzgecmisFiltrelePageModule = /** @class */ (function () {
-    function OzgecmisFiltrelePageModule() {
+var IlanFiltrelePageModule = /** @class */ (function () {
+    function IlanFiltrelePageModule() {
     }
-    OzgecmisFiltrelePageModule = __decorate([
+    IlanFiltrelePageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__ozgecmis_filtrele__["a" /* OzgecmisFiltrelePage */],
+                __WEBPACK_IMPORTED_MODULE_2__ilan_filtrele__["a" /* IlanFiltrelePage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__ozgecmis_filtrele__["a" /* OzgecmisFiltrelePage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__ilan_filtrele__["a" /* IlanFiltrelePage */]),
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__ozgecmis_filtrele__["a" /* OzgecmisFiltrelePage */]
+                __WEBPACK_IMPORTED_MODULE_2__ilan_filtrele__["a" /* IlanFiltrelePage */]
             ]
         })
-    ], OzgecmisFiltrelePageModule);
-    return OzgecmisFiltrelePageModule;
+    ], IlanFiltrelePageModule);
+    return IlanFiltrelePageModule;
 }());
 
-//# sourceMappingURL=ozgecmis-filtrele.module.js.map
+//# sourceMappingURL=ilan-filtrele.module.js.map
 
 /***/ })
 

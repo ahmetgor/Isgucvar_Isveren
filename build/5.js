@@ -1,14 +1,14 @@
 webpackJsonp([5],{
 
-/***/ 719:
+/***/ 713:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OzgecmislerimPageModule", function() { return OzgecmislerimPageModule; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IlanlarimPageModule", function() { return IlanlarimPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ozgecmislerim__ = __webpack_require__(722);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ilanlarim__ = __webpack_require__(723);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -18,42 +18,44 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-var OzgecmislerimPageModule = /** @class */ (function () {
-    function OzgecmislerimPageModule() {
+var IlanlarimPageModule = /** @class */ (function () {
+    function IlanlarimPageModule() {
     }
-    OzgecmislerimPageModule = __decorate([
+    IlanlarimPageModule = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
             declarations: [
-                __WEBPACK_IMPORTED_MODULE_2__ozgecmislerim__["a" /* OzgecmislerimPage */],
+                __WEBPACK_IMPORTED_MODULE_2__ilanlarim__["a" /* IlanlarimPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__ozgecmislerim__["a" /* OzgecmislerimPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__ilanlarim__["a" /* IlanlarimPage */]),
             ],
             exports: [
-                __WEBPACK_IMPORTED_MODULE_2__ozgecmislerim__["a" /* OzgecmislerimPage */]
+                __WEBPACK_IMPORTED_MODULE_2__ilanlarim__["a" /* IlanlarimPage */]
             ]
         })
-    ], OzgecmislerimPageModule);
-    return OzgecmislerimPageModule;
+    ], IlanlarimPageModule);
+    return IlanlarimPageModule;
 }());
 
-//# sourceMappingURL=ozgecmislerim.module.js.map
+//# sourceMappingURL=ilanlarim.module.js.map
 
 /***/ }),
 
-/***/ 722:
+/***/ 723:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OzgecmislerimPage; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanlarimPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ozgecmis_ser__ = __webpack_require__(91);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_forms__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(363);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user_ser__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__login_login__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ilan_filtrele_ilan_filtrele__ = __webpack_require__(364);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime__ = __webpack_require__(367);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login__ = __webpack_require__(41);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -71,150 +73,160 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /**
- * Generated class for the OzgecmislerimPage page.
+ * Generated class for the IlanlarimPage page.
  *
  * See http://ionicframework.com/docs/components/#navigation for more info
  * on Ionic pages and navigation.
  */
-var OzgecmislerimPage = /** @class */ (function () {
-    function OzgecmislerimPage(navCtrl, navParams, ozgecmisSer, storage, events, userAuth) {
+var IlanlarimPage = /** @class */ (function () {
+    function IlanlarimPage(navCtrl, navParams, ilanSer, modalCtrl, events, userAuth, storage) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.ozgecmisSer = ozgecmisSer;
-        this.storage = storage;
+        this.ilanSer = ilanSer;
+        this.modalCtrl = modalCtrl;
         this.events = events;
         this.userAuth = userAuth;
-        this.aktivite = 'okunmadı';
+        this.storage = storage;
+        // basvuruList: any;
+        // kaydedilenList: any;
+        this.detayAra = {};
+        this.sirala = '{}';
         this.searching = false;
         this.searchTerm = '';
         this.skip = 0;
         this.limit = 20;
         this.scrollEnable = true;
-        this.detayAra = {};
-        this.sirala = '{}';
-        this.showSearchbar = true;
-        this.searchControl = new __WEBPACK_IMPORTED_MODULE_3__angular_forms__["b" /* FormControl */]();
+        this.searchControl = new __WEBPACK_IMPORTED_MODULE_4__angular_forms__["b" /* FormControl */]();
         if (!this.userAuth.currentUser) {
             this.userAuth.checkAuthentication().then(function (res) {
-                _this.ilanId = _this.navParams.get('ilanId');
-                _this.userId = _this.userAuth.currentUser._id;
-                _this.olusturan = _this.userAuth.currentUser.email;
-                console.log("constructor çağrıldı");
-                _this.ozgecmisListele();
+                _this.detayAra.olusturan = _this.userAuth.currentUser.email;
+                _this.ilanListele();
             }, function (err) {
-                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_7__login_login__["a" /* LoginPage */]);
+                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_8__login_login__["a" /* LoginPage */]);
             });
         }
         else {
-            this.ilanId = this.navParams.get('ilanId');
             // this.storage.get('user')
-            //     .then((user) => {
-            console.log(this.userAuth.currentUser._id + 'userid');
-            this.userId = this.userAuth.currentUser._id;
-            this.olusturan = this.userAuth.currentUser.email;
-            console.log("constructor çağrıldı");
-            this.ozgecmisListele();
+            //     .then((user) => { this.user = user;
+            // console.log(JSON.stringify(user));
+            this.detayAra.olusturan = this.userAuth.currentUser.email;
+            this.ilanListele();
             // });
         }
     }
-    OzgecmislerimPage.prototype.ionViewDidLoad = function () {
+    IlanlarimPage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        console.log('ionViewDidLoad OzgecmislerimPage');
+        console.log('ionViewDidLoad IlanlarimPage');
+        console.log('ionViewDidLoad SonucPage çağrıldı');
         this.searchControl.valueChanges.debounceTime(700).subscribe(function (search) {
             _this.scrollEnable = true;
             _this.skip = 0;
-            // this.infiniteScroll.enable(true);
             console.log('ilanlistele searchkontrol çağrıldı');
-            _this.ozgecmisListele();
-        });
-        this.events.subscribe('ozgecmis:begen', function (a) {
-            _this.scrollEnable = true;
-            // this.infiniteScroll.enable(true);
-            _this.skip = 0;
-            // if(a) {
-            //   this.detayAra = {};
-            //   this.sirala = '{}';
+            _this.ilanListele();
+            console.log('searchkontrol çağrıldı');
             // }
-            console.log('ozgecmis begen event çağrıldı');
-            _this.ozgecmisListele();
         });
-        this.events.subscribe('ozgecmis:filtered_tek', function (a) {
+        this.events.subscribe('ilan:filteredilan', function (a) {
             _this.scrollEnable = true;
             // this.infiniteScroll.enable(true);
             _this.skip = 0;
-            if (a) {
-                console.log('filtre true');
+            if (a == "clear") {
+                // console.log('filtre true');
                 _this.detayAra = {};
+                _this.detayAra.olusturan = _this.userAuth.currentUser.email;
                 _this.sirala = '{}';
             }
-            console.log('ozgecmislistele filtre çağrıldı');
-            _this.ozgecmisListele();
+            console.log('ilanlistele filtre çağrıldı');
+            _this.ilanListele();
+        });
+        this.events.subscribe('ilan:ekle', function () {
+            console.log('ilan ekle event çağrıldı');
+            _this.scrollEnable = true;
+            _this.skip = 0;
+            _this.ilanListele();
         });
     };
-    OzgecmislerimPage.prototype.ozgecmisListele = function () {
+    IlanlarimPage.prototype.ilanListele = function () {
         var _this = this;
-        // let basvurular = [];
-        // basvurular.push(this.ilanId);
-        this.detayAra.basvuruId = this.ilanId;
-        this.detayAra.olusturan = this.olusturan;
-        this.detayAra.segment = this.aktivite;
-        this.detayAra.userId = this.userId;
         this.searching = true;
-        this.ozgecmisSer.getOzgecmisler(this.searchTerm, this.detayAra, this.sirala, this.skip, this.limit)
-            .then(function (ozgecmisler) {
-            _this.ozgecmisList = ozgecmisler;
-            console.log(JSON.stringify(_this.ozgecmisList) + "basvuruya ait özgecmislist");
+        this.ilanSer.getIlanlar(this.searchTerm, this.detayAra, this.sirala, this.skip, this.limit)
+            .then(function (ilanlar) {
+            _this.ilanList = ilanlar;
+            // console.log(JSON.stringify(this.ilanList));
             _this.searching = false;
         });
     };
-    OzgecmislerimPage.prototype.toOzgecmisDetay = function (ozgecmis) {
+    IlanlarimPage.prototype.itemTapped = function (ev, ilan) {
         // console.log(JSON.stringify(this.basvuruList)+'sonuc basvuru');
-        console.log(JSON.stringify(ozgecmis) + 'ozgecmisDetay');
-        this.navCtrl.push('OzgecmisDetayPage', {
-            ozgecmisTapped: ozgecmis,
-            aktivite: this.aktivite,
-            ozgecmisId: ozgecmis._id
+        console.log(JSON.stringify(ilan) + 'ilan');
+        this.navCtrl.push('IlanDetayPage', {
+            ilan: ilan,
+            guncelleyen: this.detayAra.olusturan,
+            ilanId: ilan._id
+            // basvurulist: this.basvuruSer.basvuruList,
+            // kaydedilenlist: this.basvuruSer.kaydedilenList
         });
     };
-    OzgecmislerimPage.prototype.presentFilter = function (myEvent) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__ozgecmis_filtrele_ozgecmis_filtrele__["a" /* OzgecmisFiltrelePage */], {
+    IlanlarimPage.prototype.presentFilter = function (myEvent) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__ilan_filtrele_ilan_filtrele__["a" /* IlanFiltrelePage */], {
             detayAra: this.detayAra,
             sirala: this.sirala,
-            page: 'tek'
+            ilanlarim: 'ilan'
         });
     };
-    OzgecmislerimPage.prototype.toggleSearchbar = function () {
-        this.showSearchbar = !this.showSearchbar;
-        // this.content.resize();
+    IlanlarimPage.prototype.doInfinite = function (infiniteScroll) {
+        var _this = this;
+        console.log('Begin async operation');
+        // this.infiniteScroll = infiniteScroll;
+        // infiniteScroll.enable(true);
+        // infiniteScroll.enable(false);
+        setTimeout(function () {
+            _this.skip = _this.skip + 1;
+            _this.ilanSer.getIlanlar(_this.searchTerm, _this.detayAra, _this.sirala, _this.skip, _this.limit)
+                .then(function (ilanlar) {
+                console.log(JSON.stringify(ilanlar) + "ilanlar");
+                if (Object.keys(ilanlar).length < _this.limit) {
+                    console.log('true');
+                    // infiniteScroll.enable(false);
+                    _this.scrollEnable = false;
+                    ;
+                }
+                console.log('false');
+                // infiniteScroll.enable(true);
+                // this.scrollEnable = true;
+                for (var key in ilanlar) {
+                    _this.ilanList.push(ilanlar[key]);
+                }
+            });
+            console.log('Async operation has ended');
+            infiniteScroll.complete();
+        }, 500);
     };
-    OzgecmislerimPage.prototype.toggleSegment = function () {
-        this.showSearchbar = !this.showSearchbar;
-        this.content.resize();
+    IlanlarimPage.prototype.getDays = function (d1) {
+        // console.log(d1);
+        // console.log(JSON.stringify(d1)+'datedate');
+        // console.log((new Date(d1)).getTime() +' date'+ (new Date()).getTime());
+        var diff = Math.floor(((new Date()).getTime() - (new Date(d1)).getTime()) / 86400000);
+        return diff;
     };
-    OzgecmislerimPage.prototype.getAge = function (date) {
-        return ~~(((new Date()).getTime() - (new Date(date)).getTime()) / (31557600000));
-    };
-    OzgecmislerimPage.prototype.onSearchInput = function () {
+    IlanlarimPage.prototype.onSearchInput = function () {
         this.searching = true;
     };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('content'),
-        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* Content */])
-    ], OzgecmislerimPage.prototype, "content", void 0);
-    OzgecmislerimPage = __decorate([
+    IlanlarimPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ozgecmislerim',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ozgecmislerim\ozgecmislerim.html"*/'<!--\n\n  Generated template for the OzgecmislerimPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>Özgeçmişlerim</ion-title>\n\n    <ion-buttons end>\n\n  <button ion-button icon-only (click)="toggleSearchbar()">\n\n    <ion-icon name="search"></ion-icon>\n\n  </button>\n\n  <button ion-button icon-only (click)="presentFilter($event)">\n\n    <ion-icon name="funnel"></ion-icon>\n\n  </button>\n\n</ion-buttons>\n\n  </ion-navbar>\n\n  <ion-toolbar >\n\n    <ion-segment [(ngModel)]="aktivite" color="dark" (ionChange)="ozgecmisListele()">\n\n      <ion-segment-button value="okunmadı">\n\n        <ion-icon name="eye"></ion-icon>\n\n      </ion-segment-button>\n\n      <ion-segment-button value="okundu">\n\n        <ion-icon name="thumbs-down"></ion-icon>\n\n      </ion-segment-button>\n\n      <ion-segment-button value="begen">\n\n        <ion-icon name="thumbs-up"></ion-icon>\n\n      </ion-segment-button>\n\n      <ion-segment-button value="cokbegen">\n\n        <ion-icon name="thumbs-up"></ion-icon>\n\n        <ion-icon name="thumbs-up"></ion-icon>\n\n      </ion-segment-button>\n\n    </ion-segment>\n\n  </ion-toolbar>\n\n</ion-header>\n\n\n\n<ion-content #content>\n\n  <ion-searchbar [hidden]="showSearchbar"  [(ngModel)]="searchTerm" [formControl]="searchControl" placeholder="Anahtar kelime"></ion-searchbar>\n\n  <div *ngIf="searching" class="spinner-container">\n\n      <ion-spinner></ion-spinner>\n\n  </div>\n\n\n\n  <!-- <div [ngSwitch]="aktivite">\n\n    <div  *ngSwitchCase="\'okunmadı\'"> -->\n\n  <ion-list text-wrap>\n\n    <button ion-item *ngFor="let ozgecmis of ozgecmisList" (click)="toOzgecmisDetay(ozgecmis)">\n\n      <ion-thumbnail item-left>\n\n        <img class="img-circle" [src]="ozgecmis.resim">\n\n      </ion-thumbnail>\n\n\n\n      <h2>{{ozgecmis.isim}} {{ozgecmis.soyisim}}</h2>\n\n      <p>{{ozgecmis.unvan}}</p>\n\n      <p>{{getAge(ozgecmis.dogumTarihi)}} yaşında, {{ozgecmis.yilTecrube}} yıl tecrübe</p>\n\n\n\n    </button>\n\n  </ion-list>\n\n<!-- </div> -->\n\n\n\n<!-- <div  *ngSwitchCase="\'okundu\'">\n\n<ion-list text-wrap>\n\n<button ion-item *ngFor="let ozgecmis of ozgecmisList" (click)="toOzgecmisDetay(ozgecmis.ozgecmis)">\n\n  <ion-thumbnail item-left>\n\n    <img [src]="ozgecmis.ozgecmis.resim.link">\n\n  </ion-thumbnail>\n\n\n\n  <h2>{{ozgecmis.ozgecmis.isim}} {{ozgecmis.ozgecmis.soyisim}}</h2>\n\n  <p>{{ozgecmis.ozgecmis.unvan}}</p>\n\n  <p>{{getAge(ozgecmis.ozgecmis.dogumTarihi)}} yaşında, {{ozgecmis.ozgecmis.yilTecrube}} yıl tecrübe</p>\n\n\n\n</button>\n\n</ion-list>\n\n</div>\n\n\n\n<div  *ngSwitchCase="\'begen\'">\n\n<ion-list text-wrap>\n\n<button ion-item *ngFor="let ozgecmis of ozgecmisList" (click)="toOzgecmisDetay(ozgecmis.ozgecmis)">\n\n  <ion-thumbnail item-left>\n\n    <img [src]="ozgecmis.ozgecmis.resim.link">\n\n  </ion-thumbnail>\n\n\n\n  <h2>{{ozgecmis.ozgecmis.isim}} {{ozgecmis.ozgecmis.soyisim}}</h2>\n\n  <p>{{ozgecmis.ozgecmis.unvan}}</p>\n\n  <p>{{getAge(ozgecmis.ozgecmis.dogumTarihi)}} yaşında, {{ozgecmis.ozgecmis.yilTecrube}} yıl tecrübe</p>\n\n\n\n</button>\n\n</ion-list>\n\n</div>\n\n\n\n<div  *ngSwitchCase="\'cokbegen\'">\n\n<ion-list text-wrap>\n\n<button ion-item *ngFor="let ozgecmis of ozgecmisList" (click)="toOzgecmisDetay(ozgecmis.ozgecmis)">\n\n  <ion-thumbnail item-left>\n\n    <img [src]="ozgecmis.ozgecmis.resim.link">\n\n  </ion-thumbnail>\n\n\n\n  <h2>{{ozgecmis.ozgecmis.isim}} {{ozgecmis.ozgecmis.soyisim}}</h2>\n\n  <p>{{ozgecmis.ozgecmis.unvan}}</p>\n\n  <p>{{getAge(ozgecmis.ozgecmis.dogumTarihi)}} yaşında, {{ozgecmis.ozgecmis.yilTecrube}} yıl tecrübe</p>\n\n\n\n</button>\n\n</ion-list>\n\n</div>\n\n</div> -->\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ozgecmislerim\ozgecmislerim.html"*/,
+            selector: 'page-ilanlarim',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilanlarim\ilanlarim.html"*/'<!--\n\n  Generated template for the IlanlarimPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>İlanlarım</ion-title>\n\n    <ion-buttons end>\n\n  <button ion-button icon-only (click)="presentFilter($event)">\n\n    <ion-icon name="funnel"></ion-icon>\n\n  </button>\n\n</ion-buttons>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content>\n\n  <ion-searchbar  [(ngModel)]="searchTerm"  [formControl]="searchControl" placeholder="Anahtar kelime"></ion-searchbar>\n\n  <div *ngIf="searching" class="spinner-container">\n\n      <ion-spinner></ion-spinner>\n\n  </div>\n\n  <ion-list text-wrap>\n\n\n\n    <button ion-item [class.ilan]="!ilan.enabled" *ngFor="let ilan of ilanList" (click)="itemTapped($event, ilan)">\n\n\n\n      <!-- <ion-icon [name]="item.icon" item-left></ion-icon> -->\n\n      <ion-thumbnail item-left *ngIf="ilan && ilan.firma">\n\n        <img class="img-circle" [src]="ilan.firma.resim">\n\n      </ion-thumbnail>\n\n      <ion-row>\n\n      <ion-col>\n\n      <h2>{{ilan.baslik}}</h2>\n\n      </ion-col>\n\n    </ion-row>\n\n\n\n      <ion-row>\n\n        <ion-col>\n\n      <div class="firma"><h4>{{ilan.firmaAdi}}</h4></div>\n\n      </ion-col>\n\n      <ion-col>\n\n        <h4 align="right" [class.my-class]="getDays(ilan.olusurmaTarih) < 10">\n\n          <ion-icon name="calendar"></ion-icon>\n\n          {{getDays(ilan.olusturmaTarih)}} gün\n\n        </h4>\n\n      </ion-col>\n\n      </ion-row>\n\n\n\n    <ion-row>\n\n      <ion-col col-auto>\n\n        <ion-icon name="pin"></ion-icon>\n\n          {{ilan.il}}\n\n\n\n    </ion-col>\n\n    <ion-col>\n\n      <p align="right">\n\n    <ion-icon name="briefcase"></ion-icon>\n\n    {{ilan.tip}}\n\n  </p>\n\n</ion-col>\n\n</ion-row>\n\n\n\n      <!-- <ion-col>\n\n        <p align="right">\n\n          <span style="float:left;">\n\n          <i *ngIf="checkBasvuru(ilan)">\n\n            <ion-icon name="checkmark-circle"></ion-icon>\n\n          </i>\n\n          <i *ngIf="checkKaydedilen(ilan)">\n\n            <ion-icon name="bookmark"></ion-icon>\n\n          </i>\n\n        </span>\n\n          <ion-icon name="briefcase"></ion-icon>\n\n          {{ilan.tip}}\n\n        </p>\n\n      </ion-col> -->\n\n    </button>\n\n  </ion-list>\n\n\n\n\n\n  <ion-infinite-scroll *ngIf="scrollEnable" (ionInfinite)="doInfinite($event)">\n\n\n\n  <ion-infinite-scroll-content\n\n  loadingText="İlanlar yükleniyor...">\n\n</ion-infinite-scroll-content>\n\n</ion-infinite-scroll>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilanlarim\ilanlarim.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_2__providers_ozgecmis_ser__["a" /* OzgecmisSerProvider */], __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_6__providers_user_ser__["a" /* UserSerProvider */]])
-    ], OzgecmislerimPage);
-    return OzgecmislerimPage;
+            __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__["a" /* IlanSerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ModalController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */], __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__["a" /* UserSerProvider */], __WEBPACK_IMPORTED_MODULE_7__ionic_storage__["b" /* Storage */]])
+    ], IlanlarimPage);
+    return IlanlarimPage;
 }());
 
-//# sourceMappingURL=ozgecmislerim.js.map
+//# sourceMappingURL=ilanlarim.js.map
 
 /***/ })
 
