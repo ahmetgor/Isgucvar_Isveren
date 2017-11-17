@@ -4,12 +4,162 @@ webpackJsonp([16],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HesapPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(41);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var HesapPage = /** @class */ (function () {
+    function HesapPage(navCtrl, navParams, camera, storage, ozgecmisSer, authService, platform) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.camera = camera;
+        this.storage = storage;
+        this.ozgecmisSer = ozgecmisSer;
+        this.authService = authService;
+        this.platform = platform;
+        this.newpassword = "";
+        this.newpassword1 = "";
+        if (!this.authService.currentUser) {
+            this.authService.checkAuthentication().then(function (res) {
+            }, function (err) {
+                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
+            });
+        }
+        else {
+            this.storage.get('user')
+                .then(function (user) {
+                _this.user = user;
+                _this.userUrl = 'url(' + user.resim + ')';
+                _this.cloudUrl = user.resim;
+                console.log(JSON.stringify(user));
+            });
+        }
+    }
+    HesapPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad HesapPage');
+        this.newpassword = "";
+        this.newpassword1 = "";
+    };
+    HesapPage.prototype.updateUser = function () {
+        // this.ozgecmisSer.updateAvatar(this.cloudUrl)
+        // .then( (resUrl: any) => {
+        //   this.cloudUrl = resUrl.secure_url;
+        //   console.log(resUrl.secure_url+"user cloud url");
+        var _this = this;
+        var details = {
+            email: this.user.email,
+            userUrl: this.cloudUrl
+        };
+        if (this.newpassword.trim() && this.newpassword.trim() != "") {
+            details.newpassword = this.newpassword;
+        }
+        this.authService.updateUser(details).then(function (result) {
+            // this.presentToast('Kaydınız yapıldı, giriş yapabilirsiniz');
+            _this.authService.logout();
+            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
+        }, function (err) {
+            // let msg = JSON.parse(err._body);
+            // console.log(msg.error+'asdasd');
+        });
+        // });
+    };
+    HesapPage.prototype.getPicture = function (url) {
+        var _this = this;
+        if (!this.platform.is('core')) {
+            this.camera.getPicture({
+                sourceType: 0,
+                destinationType: this.camera.DestinationType.DATA_URL,
+                targetWidth: 300,
+                targetHeight: 300,
+                allowEdit: true,
+                quality: 70
+            }).then(function (data) {
+                console.log("camera");
+                _this.userUrl = 'data:image/jpg;base64,' + data;
+                _this.cloudUrl = _this.userUrl;
+                // this.form.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
+            }, function (err) {
+                // alert('Unable to take photo');
+            });
+        }
+        else {
+            console.log("native");
+            this.userFileInput.nativeElement.click();
+        }
+    };
+    HesapPage.prototype.processWebImage = function (event) {
+        var _this = this;
+        var reader = new FileReader();
+        var imageData = new Image();
+        var canvas = document.createElement('canvas');
+        var dataUrl = undefined;
+        reader.onload = function (readerEvent) {
+            console.log("event");
+            dataUrl = readerEvent.target.result;
+            // console.log(imageData.src+"src");
+            // canvas.getContext("2d").drawImage(imageData, 0, 0);
+            // let dataUrl = canvas.toDataURL('image/jpg');
+            console.log(dataUrl);
+            console.log(dataUrl.length);
+            _this.userUrl = 'url(' + dataUrl + ')';
+            _this.cloudUrl = dataUrl;
+            // console.log(imageData);
+            // console.log(JSON.stringify(readerEvent.target));
+            // this.form.patchValue({ 'profilePic': imageData });
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        console.log(event.target.files[0]);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('userFileInput'),
+        __metadata("design:type", Object)
+    ], HesapPage.prototype, "userFileInput", void 0);
+    HesapPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-hesap',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/'<!--\n\n  Generated template for the HesapPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Hesap</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <form #heroForm="ngForm">\n\n    <div *ngIf="user">\n\n    <ion-list>\n\n      <ion-item-divider no-lines color="light">Profil resmi değiştirin:</ion-item-divider>\n\n      <input type="file" #userFileInput [hidden]="true" (change)="processWebImage($event)" required />\n\n      <!-- style="visibility: hidden; height: 0px"  -->\n\n      <div class="profile-image-wrapper" >\n\n        <div class="profile-image-placeholder" *ngIf="!userUrl">\n\n          <ion-icon name="add"></ion-icon>\n\n          <div>Profil Resmi</div>\n\n        </div>\n\n        <!-- [style.backgroundImage]="userUrl" -->\n\n          <div *ngIf="userUrl" >\n\n              <img class="profile-image" [src]="cloudUrl" (click)="getPicture()">\n\n          </div>\n\n      </div>\n\n\n\n        <ion-item-divider no-lines color="light">Yeni şifre belirleyin:</ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword" placeholder="Yeni Şifre" autocomplete="off" type="password" #pass="ngModel" name="pass" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass.errors">\n\n            <p style="color:red;">Şifre minimum 6 karakter olmalı</p>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword1" placeholder="Yeni Şifre tekrar" autocomplete="off" type="password" #pass1="ngModel" name="pass1" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass1.value != pass.value">\n\n            <p style="color:red;">Girilen şifreler aynı değil</p>\n\n        </ion-item>\n\n        <ion-item-divider no-lines color="light"></ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="user.email" placeholder="Email" type="email" #name="ngModel" name="name" disabled>\n\n          </ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="password" placeholder="Mevcut Şifre" type="password" #oldpass="ngModel" name="passwrd" required>\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="oldpass.errors">\n\n            <p style="color:red;">Lütfen şifrenizi giriniz</p>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <button ion-button block (click)="updateUser()"\n\n            [disabled]="!heroForm.form.valid||pass1.value != pass.value||heroForm.form.untouched">Güncelle</button>\n\n  </div>\n\n  </form>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__["a" /* OzgecmisSerProvider */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__["a" /* UserSerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]])
+    ], HesapPage);
+    return HesapPage;
+}());
+
+//# sourceMappingURL=hesap.js.map
+
+/***/ }),
+
+/***/ 159:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_ozgecmis_ser__ = __webpack_require__(48);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -137,7 +287,7 @@ var SignupPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 159:
+/***/ 160:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -147,7 +297,7 @@ var SignupPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(60);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -283,7 +433,7 @@ var SignupFirmaPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 160:
+/***/ 161:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -383,14 +533,14 @@ var ResetPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 161:
+/***/ 162:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirmaHesapPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(26);
@@ -537,156 +687,6 @@ var FirmaHesapPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 162:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HesapPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(41);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var HesapPage = /** @class */ (function () {
-    function HesapPage(navCtrl, navParams, camera, storage, ozgecmisSer, authService, platform) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.camera = camera;
-        this.storage = storage;
-        this.ozgecmisSer = ozgecmisSer;
-        this.authService = authService;
-        this.platform = platform;
-        this.newpassword = "";
-        this.newpassword1 = "";
-        if (!this.authService.currentUser) {
-            this.authService.checkAuthentication().then(function (res) {
-            }, function (err) {
-                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
-            });
-        }
-        else {
-            this.storage.get('user')
-                .then(function (user) {
-                _this.user = user;
-                _this.userUrl = 'url(' + user.resim + ')';
-                _this.cloudUrl = user.resim;
-                console.log(JSON.stringify(user));
-            });
-        }
-    }
-    HesapPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad HesapPage');
-        this.newpassword = "";
-        this.newpassword1 = "";
-    };
-    HesapPage.prototype.updateUser = function () {
-        // this.ozgecmisSer.updateAvatar(this.cloudUrl)
-        // .then( (resUrl: any) => {
-        //   this.cloudUrl = resUrl.secure_url;
-        //   console.log(resUrl.secure_url+"user cloud url");
-        var _this = this;
-        var details = {
-            email: this.user.email,
-            userUrl: this.cloudUrl
-        };
-        if (this.newpassword.trim() && this.newpassword.trim() != "") {
-            details.newpassword = this.newpassword;
-        }
-        this.authService.updateUser(details).then(function (result) {
-            // this.presentToast('Kaydınız yapıldı, giriş yapabilirsiniz');
-            _this.authService.logout();
-            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
-        }, function (err) {
-            // let msg = JSON.parse(err._body);
-            // console.log(msg.error+'asdasd');
-        });
-        // });
-    };
-    HesapPage.prototype.getPicture = function (url) {
-        var _this = this;
-        if (!this.platform.is('core')) {
-            this.camera.getPicture({
-                sourceType: 0,
-                destinationType: this.camera.DestinationType.DATA_URL,
-                targetWidth: 300,
-                targetHeight: 300,
-                allowEdit: true,
-                quality: 70
-            }).then(function (data) {
-                console.log("camera");
-                _this.userUrl = 'data:image/jpg;base64,' + data;
-                _this.cloudUrl = _this.userUrl;
-                // this.form.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
-            }, function (err) {
-                // alert('Unable to take photo');
-            });
-        }
-        else {
-            console.log("native");
-            this.userFileInput.nativeElement.click();
-        }
-    };
-    HesapPage.prototype.processWebImage = function (event) {
-        var _this = this;
-        var reader = new FileReader();
-        var imageData = new Image();
-        var canvas = document.createElement('canvas');
-        var dataUrl = undefined;
-        reader.onload = function (readerEvent) {
-            console.log("event");
-            dataUrl = readerEvent.target.result;
-            // console.log(imageData.src+"src");
-            // canvas.getContext("2d").drawImage(imageData, 0, 0);
-            // let dataUrl = canvas.toDataURL('image/jpg');
-            console.log(dataUrl);
-            console.log(dataUrl.length);
-            _this.userUrl = 'url(' + dataUrl + ')';
-            _this.cloudUrl = dataUrl;
-            // console.log(imageData);
-            // console.log(JSON.stringify(readerEvent.target));
-            // this.form.patchValue({ 'profilePic': imageData });
-        };
-        reader.readAsDataURL(event.target.files[0]);
-        console.log(event.target.files[0]);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('userFileInput'),
-        __metadata("design:type", Object)
-    ], HesapPage.prototype, "userFileInput", void 0);
-    HesapPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-hesap',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/'<!--\n\n  Generated template for the HesapPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Hesap</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <form #heroForm="ngForm">\n\n    <div *ngIf="user">\n\n    <ion-list>\n\n      <ion-item-divider no-lines color="light">Profil resmi değiştirin:</ion-item-divider>\n\n      <input type="file" #userFileInput [hidden]="true" (change)="processWebImage($event)" required />\n\n      <!-- style="visibility: hidden; height: 0px"  -->\n\n      <div class="profile-image-wrapper" >\n\n        <div class="profile-image-placeholder" *ngIf="!userUrl">\n\n          <ion-icon name="add"></ion-icon>\n\n          <div>Profil Resmi</div>\n\n        </div>\n\n        <!-- [style.backgroundImage]="userUrl" -->\n\n          <div *ngIf="userUrl" >\n\n              <img class="profile-image" [src]="cloudUrl" (click)="getPicture()">\n\n          </div>\n\n      </div>\n\n\n\n        <ion-item-divider no-lines color="light">Yeni şifre belirleyin:</ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword" placeholder="Yeni Şifre" autocomplete="off" type="password" #pass="ngModel" name="pass" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass.errors">\n\n            <p style="color:red;">Şifre minimum 6 karakter olmalı</p>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword1" placeholder="Yeni Şifre tekrar" autocomplete="off" type="password" #pass1="ngModel" name="pass1" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass1.value != pass.value">\n\n            <p style="color:red;">Girilen şifreler aynı değil</p>\n\n        </ion-item>\n\n        <ion-item-divider no-lines color="light"></ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="user.email" placeholder="Email" type="email" #name="ngModel" name="name" disabled>\n\n          </ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="password" placeholder="Mevcut Şifre" type="password" #oldpass="ngModel" name="passwrd" required>\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="oldpass.errors">\n\n            <p style="color:red;">Lütfen şifrenizi giriniz</p>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <button ion-button block (click)="updateUser()"\n\n            [disabled]="!heroForm.form.valid||pass1.value != pass.value||heroForm.form.untouched">Güncelle</button>\n\n  </div>\n\n  </form>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__["a" /* OzgecmisSerProvider */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__["a" /* UserSerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]])
-    ], HesapPage);
-    return HesapPage;
-}());
-
-//# sourceMappingURL=hesap.js.map
-
-/***/ }),
-
 /***/ 175:
 /***/ (function(module, exports) {
 
@@ -709,19 +709,19 @@ webpackEmptyAsyncContext.id = 175;
 
 var map = {
 	"../pages/ayarlar/ayarlar.module": [
-		707,
+		722,
 		7
 	],
 	"../pages/firma-hesap/firma-hesap.module": [
-		708,
+		721,
 		15
 	],
 	"../pages/hesap/hesap.module": [
-		709,
+		707,
 		14
 	],
 	"../pages/ilan-detay/ilan-detay.module": [
-		710,
+		709,
 		6
 	],
 	"../pages/ilan-ekle/ilan-ekle.module": [
@@ -729,11 +729,11 @@ var map = {
 		1
 	],
 	"../pages/ilan-filtrele/ilan-filtrele.module": [
-		712,
+		708,
 		13
 	],
 	"../pages/ilanlarim/ilanlarim.module": [
-		714,
+		710,
 		5
 	],
 	"../pages/login/login.module": [
@@ -741,35 +741,35 @@ var map = {
 		12
 	],
 	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
-		715,
+		712,
 		0
 	],
 	"../pages/ozgecmis-filtrele/ozgecmis-filtrele.module": [
-		716,
+		717,
 		11
 	],
 	"../pages/ozgecmislerim/ozgecmislerim.module": [
-		717,
+		714,
 		4
 	],
 	"../pages/reset/reset.module": [
-		718,
+		719,
 		10
 	],
 	"../pages/signup-firma/signup-firma.module": [
-		720,
+		715,
 		9
 	],
 	"../pages/signup/signup.module": [
-		719,
+		718,
 		8
 	],
 	"../pages/tum-ilanlar/tum-ilanlar.module": [
-		721,
+		716,
 		3
 	],
 	"../pages/tum-ozgecmisler/tum-ozgecmisler.module": [
-		722,
+		720,
 		2
 	]
 };
@@ -795,7 +795,7 @@ module.exports = webpackAsyncContext;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
@@ -1258,24 +1258,24 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ilan_filtrele_ilan_filtrele__ = __webpack_require__(363);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(364);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_reset_reset__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_signup_firma_signup_firma__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_hesap_hesap__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_firma_hesap_firma_hesap__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_reset_reset__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_signup_firma_signup_firma__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_hesap_hesap__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_firma_hesap_firma_hesap__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_status_bar__ = __webpack_require__(264);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_splash_screen__ = __webpack_require__(265);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_ilan_ser__ = __webpack_require__(93);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_ozgecmis_ser__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_user_ser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_aktivite_ser__ = __webpack_require__(423);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_http__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_storage__ = __webpack_require__(33);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__cloudinary_angular_4_x__ = __webpack_require__(424);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__cloudinary_angular_4_x___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__cloudinary_angular_4_x__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_cloudinary_core__ = __webpack_require__(426);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_cloudinary_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_cloudinary_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_camera__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_camera__ = __webpack_require__(60);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_social_sharing__ = __webpack_require__(365);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_facebook__ = __webpack_require__(367);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk__ = __webpack_require__(429);
@@ -1341,22 +1341,22 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/firma-hesap/firma-hesap.module#FirmaHesapPageModule', name: 'FirmaHesapPage', segment: 'firma-hesap', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/hesap/hesap.module#HesapPageModule', name: 'HesapPage', segment: 'hesap', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilan-filtrele/ilan-filtrele.module#IlanFiltrelePageModule', name: 'IlanFiltrelePage', segment: 'ilan-filtrele', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/firma-hesap/firma-hesap.module#FirmaHesapPageModule', name: 'FirmaHesapPage', segment: 'firma-hesap', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_19__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -1416,9 +1416,9 @@ var AppModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_signup__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_reset__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_signup__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_reset__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(33);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1532,8 +1532,8 @@ var LoginPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_login_login__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_hesap_hesap__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_firma_hesap_firma_hesap__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_hesap_hesap__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_firma_hesap_firma_hesap__ = __webpack_require__(162);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1686,7 +1686,7 @@ var MyApp = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AktiviteSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1729,7 +1729,7 @@ var AktiviteSerProvider = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OzgecmisSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(21);
@@ -1882,7 +1882,7 @@ var OzgecmisSerProvider = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanSerProvider; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(21);
