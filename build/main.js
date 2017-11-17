@@ -733,11 +733,11 @@ var map = {
 		13
 	],
 	"../pages/ilanlarim/ilanlarim.module": [
-		713,
+		714,
 		5
 	],
 	"../pages/login/login.module": [
-		714,
+		713,
 		12
 	],
 	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
@@ -749,28 +749,28 @@ var map = {
 		11
 	],
 	"../pages/ozgecmislerim/ozgecmislerim.module": [
-		718,
+		717,
 		4
 	],
 	"../pages/reset/reset.module": [
-		717,
+		718,
 		10
 	],
 	"../pages/signup-firma/signup-firma.module": [
-		719,
+		720,
 		9
 	],
 	"../pages/signup/signup.module": [
-		720,
+		719,
 		8
 	],
 	"../pages/tum-ilanlar/tum-ilanlar.module": [
 		721,
-		2
+		3
 	],
 	"../pages/tum-ozgecmisler/tum-ozgecmisler.module": [
 		722,
-		3
+		2
 	]
 };
 function webpackAsyncContext(req) {
@@ -1107,6 +1107,7 @@ var IlanFiltrelePage = /** @class */ (function () {
         console.log(JSON.stringify(this.detayAra) + 'detay');
         this.sirala = navParams.get('sirala');
         this.ilanlarim = navParams.get('ilanlarim');
+        console.log(this.ilanlarim);
     }
     IlanFiltrelePage.prototype.ionViewDidLoad = function () {
         console.log('ionViewDidLoad IlanFiltrelePage' + this.ilanlarim);
@@ -1115,12 +1116,26 @@ var IlanFiltrelePage = /** @class */ (function () {
         console.log(this.sirala + 'kapatfiltre');
         console.log(JSON.stringify(this.detayAra) + 'kapatfiltre');
         // console.log(JSON.stringify(this.sirala)+'parsefiltre');
-        this.events.publish('ilan:filtered' + this.ilanlarim);
+        if (this.ilanlarim == "ilan") {
+            console.log("ilan filter");
+            this.events.publish('ilan:filteredilan', "");
+        }
+        else {
+            this.events.publish('ilan:filteredtumilan', "");
+            console.log("tumilan filter");
+        }
         this.navCtrl.pop();
     };
     IlanFiltrelePage.prototype.clear = function () {
         console.log(JSON.stringify(this.detayAra) + 'clearfiltre');
-        this.events.publish('ilan:filtered', 'clear');
+        if (this.ilanlarim == "ilan") {
+            console.log("ilan clear");
+            this.events.publish('ilan:filteredilan', "clear");
+        }
+        else {
+            this.events.publish('ilan:filteredtumilan', "clear");
+            console.log("tumilan clear");
+        }
         this.navCtrl.pop();
     };
     IlanFiltrelePage = __decorate([
@@ -1137,7 +1152,7 @@ var IlanFiltrelePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 365:
+/***/ 364:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1241,7 +1256,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(422);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ilan_filtrele_ilan_filtrele__ = __webpack_require__(363);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(364);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_reset_reset__ = __webpack_require__(160);
@@ -1261,8 +1276,8 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_cloudinary_core__ = __webpack_require__(426);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_cloudinary_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_cloudinary_core__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_camera__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_social_sharing__ = __webpack_require__(364);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_facebook__ = __webpack_require__(366);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_social_sharing__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_facebook__ = __webpack_require__(367);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk__ = __webpack_require__(429);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -1332,14 +1347,14 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilan-filtrele/ilan-filtrele.module#IlanFiltrelePageModule', name: 'IlanFiltrelePage', segment: 'ilan-filtrele', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] }
                     ]
@@ -2042,10 +2057,11 @@ var IlanSerProvider = /** @class */ (function () {
     };
     IlanSerProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _e || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */],
+            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */],
+            __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
     ], IlanSerProvider);
     return IlanSerProvider;
-    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=ilan-ser.js.map

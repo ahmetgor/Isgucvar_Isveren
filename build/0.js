@@ -53,7 +53,7 @@ var OzgecmisDetayPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ozgecmis_ser__ = __webpack_require__(48);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_social_sharing__ = __webpack_require__(364);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_social_sharing__ = __webpack_require__(365);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -171,13 +171,15 @@ var OzgecmisDetayPage = /** @class */ (function () {
                     handler: function () {
                         _this.shareFace();
                     }
-                }, {
-                    text: 'LinkedIn', icon: 'logo-linkedin',
-                    handler: function () {
-                        _this.shareLinked();
-                        console.log('Archive clicked');
-                    }
-                }, {
+                },
+                // {
+                //   text: 'LinkedIn',icon: 'logo-linkedin',
+                //   handler: () => {
+                //     this.shareLinked();
+                //     console.log('Archive clicked');
+                //   }
+                // }
+                {
                     text: 'İptal', role: 'cancel', icon: 'close',
                     handler: function () {
                         console.log('Cancel clicked');
