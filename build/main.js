@@ -1,166 +1,16 @@
 webpackJsonp([16],{
 
-/***/ 158:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HesapPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(41);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var HesapPage = /** @class */ (function () {
-    function HesapPage(navCtrl, navParams, camera, storage, ozgecmisSer, authService, platform) {
-        var _this = this;
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-        this.camera = camera;
-        this.storage = storage;
-        this.ozgecmisSer = ozgecmisSer;
-        this.authService = authService;
-        this.platform = platform;
-        this.newpassword = "";
-        this.newpassword1 = "";
-        if (!this.authService.currentUser) {
-            this.authService.checkAuthentication().then(function (res) {
-            }, function (err) {
-                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
-            });
-        }
-        else {
-            this.storage.get('user')
-                .then(function (user) {
-                _this.user = user;
-                _this.userUrl = 'url(' + user.resim + ')';
-                _this.cloudUrl = user.resim;
-                console.log(JSON.stringify(user));
-            });
-        }
-    }
-    HesapPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad HesapPage');
-        this.newpassword = "";
-        this.newpassword1 = "";
-    };
-    HesapPage.prototype.updateUser = function () {
-        // this.ozgecmisSer.updateAvatar(this.cloudUrl)
-        // .then( (resUrl: any) => {
-        //   this.cloudUrl = resUrl.secure_url;
-        //   console.log(resUrl.secure_url+"user cloud url");
-        var _this = this;
-        var details = {
-            email: this.user.email,
-            userUrl: this.cloudUrl
-        };
-        if (this.newpassword.trim() && this.newpassword.trim() != "") {
-            details.newpassword = this.newpassword;
-        }
-        this.authService.updateUser(details).then(function (result) {
-            // this.presentToast('Kaydınız yapıldı, giriş yapabilirsiniz');
-            _this.authService.logout();
-            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
-        }, function (err) {
-            // let msg = JSON.parse(err._body);
-            // console.log(msg.error+'asdasd');
-        });
-        // });
-    };
-    HesapPage.prototype.getPicture = function (url) {
-        var _this = this;
-        if (!this.platform.is('core')) {
-            this.camera.getPicture({
-                sourceType: 0,
-                destinationType: this.camera.DestinationType.DATA_URL,
-                targetWidth: 300,
-                targetHeight: 300,
-                allowEdit: true,
-                quality: 70
-            }).then(function (data) {
-                console.log("camera");
-                _this.userUrl = 'data:image/jpg;base64,' + data;
-                _this.cloudUrl = _this.userUrl;
-                // this.form.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
-            }, function (err) {
-                // alert('Unable to take photo');
-            });
-        }
-        else {
-            console.log("native");
-            this.userFileInput.nativeElement.click();
-        }
-    };
-    HesapPage.prototype.processWebImage = function (event) {
-        var _this = this;
-        var reader = new FileReader();
-        var imageData = new Image();
-        var canvas = document.createElement('canvas');
-        var dataUrl = undefined;
-        reader.onload = function (readerEvent) {
-            console.log("event");
-            dataUrl = readerEvent.target.result;
-            // console.log(imageData.src+"src");
-            // canvas.getContext("2d").drawImage(imageData, 0, 0);
-            // let dataUrl = canvas.toDataURL('image/jpg');
-            console.log(dataUrl);
-            console.log(dataUrl.length);
-            _this.userUrl = 'url(' + dataUrl + ')';
-            _this.cloudUrl = dataUrl;
-            // console.log(imageData);
-            // console.log(JSON.stringify(readerEvent.target));
-            // this.form.patchValue({ 'profilePic': imageData });
-        };
-        reader.readAsDataURL(event.target.files[0]);
-        console.log(event.target.files[0]);
-    };
-    __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('userFileInput'),
-        __metadata("design:type", Object)
-    ], HesapPage.prototype, "userFileInput", void 0);
-    HesapPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-hesap',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/'<!--\n\n  Generated template for the HesapPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Hesap</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <form #heroForm="ngForm">\n\n    <div *ngIf="user">\n\n    <ion-list>\n\n      <ion-item-divider no-lines color="light">Profil resmi değiştirin:</ion-item-divider>\n\n      <input type="file" #userFileInput [hidden]="true" (change)="processWebImage($event)" required />\n\n      <!-- style="visibility: hidden; height: 0px"  -->\n\n      <div class="profile-image-wrapper" >\n\n        <div class="profile-image-placeholder" *ngIf="!userUrl">\n\n          <ion-icon name="add"></ion-icon>\n\n          <div>Profil Resmi</div>\n\n        </div>\n\n        <!-- [style.backgroundImage]="userUrl" -->\n\n          <div *ngIf="userUrl" >\n\n              <img class="profile-image" [src]="cloudUrl" (click)="getPicture()">\n\n          </div>\n\n      </div>\n\n\n\n        <ion-item-divider no-lines color="light">Yeni şifre belirleyin:</ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword" placeholder="Yeni Şifre" autocomplete="off" type="password" #pass="ngModel" name="pass" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass.errors">\n\n            <p style="color:red;">Şifre minimum 6 karakter olmalı</p>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword1" placeholder="Yeni Şifre tekrar" autocomplete="off" type="password" #pass1="ngModel" name="pass1" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass1.value != pass.value">\n\n            <p style="color:red;">Girilen şifreler aynı değil</p>\n\n        </ion-item>\n\n        <ion-item-divider no-lines color="light"></ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="user.email" placeholder="Email" type="email" #name="ngModel" name="name" disabled>\n\n          </ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="password" placeholder="Mevcut Şifre" type="password" #oldpass="ngModel" name="passwrd" required>\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="oldpass.errors">\n\n            <p style="color:red;">Lütfen şifrenizi giriniz</p>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <button ion-button block (click)="updateUser()"\n\n            [disabled]="!heroForm.form.valid||pass1.value != pass.value||heroForm.form.untouched">Güncelle</button>\n\n  </div>\n\n  </form>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/,
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */],
-            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__["a" /* OzgecmisSerProvider */],
-            __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__["a" /* UserSerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]])
-    ], HesapPage);
-    return HesapPage;
-}());
-
-//# sourceMappingURL=hesap.js.map
-
-/***/ }),
-
-/***/ 159:
+/***/ 111:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_ozgecmis_ser__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_camera__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_ozgecmis_ser__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -187,7 +37,7 @@ var SignupPage = /** @class */ (function () {
         this.ozgecmisSer = ozgecmisSer;
     }
     SignupPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad SignupPage');
+        //console.log('ionViewDidLoad SignupPage');
     };
     SignupPage.prototype.register = function () {
         var _this = this;
@@ -220,7 +70,7 @@ var SignupPage = /** @class */ (function () {
                 targetWidth: 96,
                 targetHeight: 96
             }).then(function (data) {
-                console.log("camera");
+                //console.log("camera");
                 if (url == 'user') {
                     _this.userUrl = 'data:image/jpg;base64,' + data;
                 }
@@ -233,7 +83,7 @@ var SignupPage = /** @class */ (function () {
             });
         }
         else {
-            console.log("native");
+            //console.log("native");
             if (url == 'user') {
                 this.userFileInput.nativeElement.click();
             }
@@ -246,7 +96,7 @@ var SignupPage = /** @class */ (function () {
         var _this = this;
         var reader = new FileReader();
         reader.onload = function (readerEvent) {
-            console.log("event");
+            //console.log("event");
             var imageData = readerEvent.target.result;
             if (url == 'user') {
                 _this.userUrl = imageData;
@@ -287,17 +137,17 @@ var SignupPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 160:
+/***/ 112:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SignupFirmaPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_camera__ = __webpack_require__(44);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -324,7 +174,7 @@ var SignupFirmaPage = /** @class */ (function () {
         this.ozgecmisSer = ozgecmisSer;
     }
     SignupFirmaPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad SignupFirmaPage');
+        //console.log('ionViewDidLoad SignupFirmaPage');
     };
     SignupFirmaPage.prototype.registerFirma = function () {
         // this.ozgecmisSer.updateAvatar(this.userUrl)
@@ -365,7 +215,7 @@ var SignupFirmaPage = /** @class */ (function () {
                 targetWidth: 96,
                 targetHeight: 96
             }).then(function (data) {
-                console.log("camera");
+                //console.log("camera");
                 if (url == 'user') {
                     _this.userUrl = 'data:image/jpg;base64,' + data;
                 }
@@ -378,7 +228,7 @@ var SignupFirmaPage = /** @class */ (function () {
             });
         }
         else {
-            console.log("native");
+            //console.log("native");
             if (url == 'user') {
                 this.userFileInput.nativeElement.click();
             }
@@ -391,7 +241,7 @@ var SignupFirmaPage = /** @class */ (function () {
         var _this = this;
         var reader = new FileReader();
         reader.onload = function (readerEvent) {
-            console.log("event");
+            //console.log("event");
             var imageData = readerEvent.target.result;
             if (url == 'user') {
                 _this.userUrl = imageData;
@@ -433,15 +283,15 @@ var SignupFirmaPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 161:
+/***/ 113:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ResetPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__login_login__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -471,7 +321,7 @@ var ResetPage = /** @class */ (function () {
         this.reset = true;
     }
     ResetPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad PassResetPage');
+        //console.log('ionViewDidLoad PassResetPage');
     };
     ResetPage.prototype.resetle = function () {
         var _this = this;
@@ -487,7 +337,7 @@ var ResetPage = /** @class */ (function () {
             // this.navCtrl.setRoot(SonucPage);
         }, function (err) {
             // this.loading.dismiss();
-            console.log(JSON.stringify(err._body) + 'asdasd');
+            //console.log(JSON.stringify(err._body)+'asdasd');
             // this.presentToast('Girdiğiniz kullanıcı geçersiz veya bağ');
         });
     };
@@ -508,7 +358,7 @@ var ResetPage = /** @class */ (function () {
             // this.navCtrl.setRoot(SonucPage);
         }, function (err) {
             // this.loading.dismiss();
-            console.log(JSON.stringify(err._body) + 'asdasd');
+            //console.log(JSON.stringify(err._body)+'asdasd');
             // this.presentToast('Girdiğiniz kullanıcı geçersiz veya bağ');
         });
     };
@@ -533,19 +383,19 @@ var ResetPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 162:
+/***/ 114:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirmaHesapPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_ilan_ser__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__login_login__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_ilan_ser__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__login_login__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -596,7 +446,7 @@ var FirmaHesapPage = /** @class */ (function () {
         }
     }
     FirmaHesapPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad FirmaHesapPage');
+        //console.log('ionViewDidLoad FirmaHesapPage');
         this.newpassword = "";
         this.newpassword1 = "";
     };
@@ -614,7 +464,7 @@ var FirmaHesapPage = /** @class */ (function () {
         if (this.newpassword.trim() && this.newpassword.trim() != "") {
             details.newpassword = this.newpassword;
         }
-        console.log(JSON.stringify(details));
+        //console.log(JSON.stringify(details));
         this.authService.updateFirma(details).then(function (result) {
             // this.presentToast('Kaydınız yapıldı, giriş yapabilirsiniz');
             _this.authService.logout();
@@ -633,7 +483,7 @@ var FirmaHesapPage = /** @class */ (function () {
                 targetWidth: 96,
                 targetHeight: 96
             }).then(function (data) {
-                console.log("camera");
+                //console.log("camera");
                 _this.userUrl = 'data:image/jpg;base64,' + data;
                 _this.cloudUrl = _this.userUrl;
                 // this.form.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
@@ -642,7 +492,7 @@ var FirmaHesapPage = /** @class */ (function () {
             });
         }
         else {
-            console.log("native");
+            //console.log("native");
             this.userFileInput.nativeElement.click();
         }
     };
@@ -650,7 +500,7 @@ var FirmaHesapPage = /** @class */ (function () {
         var _this = this;
         var reader = new FileReader();
         reader.onload = function (readerEvent) {
-            console.log("event");
+            //console.log("event");
             var imageData = readerEvent.target.result;
             _this.userUrl = 'url(' + imageData + ')';
             _this.cloudUrl = imageData;
@@ -687,7 +537,157 @@ var FirmaHesapPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 175:
+/***/ 115:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HesapPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(27);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var HesapPage = /** @class */ (function () {
+    function HesapPage(navCtrl, navParams, camera, storage, ozgecmisSer, authService, platform) {
+        var _this = this;
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+        this.camera = camera;
+        this.storage = storage;
+        this.ozgecmisSer = ozgecmisSer;
+        this.authService = authService;
+        this.platform = platform;
+        this.newpassword = "";
+        this.newpassword1 = "";
+        if (!this.authService.currentUser) {
+            this.authService.checkAuthentication().then(function (res) {
+            }, function (err) {
+                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
+            });
+        }
+        else {
+            this.storage.get('user')
+                .then(function (user) {
+                _this.user = user;
+                _this.userUrl = 'url(' + user.resim + ')';
+                _this.cloudUrl = user.resim;
+                //console.log(JSON.stringify(user));
+            });
+        }
+    }
+    HesapPage.prototype.ionViewDidLoad = function () {
+        //console.log('ionViewDidLoad HesapPage');
+        this.newpassword = "";
+        this.newpassword1 = "";
+    };
+    HesapPage.prototype.updateUser = function () {
+        // this.ozgecmisSer.updateAvatar(this.cloudUrl)
+        // .then( (resUrl: any) => {
+        //   this.cloudUrl = resUrl.secure_url;
+        //   console.log(resUrl.secure_url+"user cloud url");
+        var _this = this;
+        var details = {
+            email: this.user.email,
+            userUrl: this.cloudUrl
+        };
+        if (this.newpassword.trim() && this.newpassword.trim() != "") {
+            details.newpassword = this.newpassword;
+        }
+        this.authService.updateUser(details).then(function (result) {
+            // this.presentToast('Kaydınız yapıldı, giriş yapabilirsiniz');
+            _this.authService.logout();
+            _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
+        }, function (err) {
+            // let msg = JSON.parse(err._body);
+            // console.log(msg.error+'asdasd');
+        });
+        // });
+    };
+    HesapPage.prototype.getPicture = function (url) {
+        var _this = this;
+        if (!this.platform.is('core')) {
+            this.camera.getPicture({
+                sourceType: 0,
+                destinationType: this.camera.DestinationType.DATA_URL,
+                targetWidth: 300,
+                targetHeight: 300,
+                allowEdit: true,
+                quality: 70
+            }).then(function (data) {
+                //console.log("camera");
+                _this.userUrl = 'data:image/jpg;base64,' + data;
+                _this.cloudUrl = _this.userUrl;
+                // this.form.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
+            }, function (err) {
+                // alert('Unable to take photo');
+            });
+        }
+        else {
+            //console.log("native");
+            this.userFileInput.nativeElement.click();
+        }
+    };
+    HesapPage.prototype.processWebImage = function (event) {
+        var _this = this;
+        var reader = new FileReader();
+        var imageData = new Image();
+        var canvas = document.createElement('canvas');
+        var dataUrl = undefined;
+        reader.onload = function (readerEvent) {
+            //console.log("event");
+            dataUrl = readerEvent.target.result;
+            // console.log(imageData.src+"src");
+            // canvas.getContext("2d").drawImage(imageData, 0, 0);
+            // let dataUrl = canvas.toDataURL('image/jpg');
+            //console.log(dataUrl);
+            //console.log(dataUrl.length);
+            _this.userUrl = 'url(' + dataUrl + ')';
+            _this.cloudUrl = dataUrl;
+            // console.log(imageData);
+            // console.log(JSON.stringify(readerEvent.target));
+            // this.form.patchValue({ 'profilePic': imageData });
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        //console.log(event.target.files[0]);
+    };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('userFileInput'),
+        __metadata("design:type", Object)
+    ], HesapPage.prototype, "userFileInput", void 0);
+    HesapPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+            selector: 'page-hesap',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/'<!--\n\n  Generated template for the HesapPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Hesap</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n  <form #heroForm="ngForm">\n\n    <div *ngIf="user">\n\n    <ion-list>\n\n      <ion-item-divider no-lines color="light">Profil resmi değiştirin:</ion-item-divider>\n\n      <input type="file" #userFileInput [hidden]="true" (change)="processWebImage($event)" required />\n\n      <!-- style="visibility: hidden; height: 0px"  -->\n\n      <div class="profile-image-wrapper" >\n\n        <div class="profile-image-placeholder" *ngIf="!userUrl">\n\n          <ion-icon name="add"></ion-icon>\n\n          <div>Profil Resmi</div>\n\n        </div>\n\n        <!-- [style.backgroundImage]="userUrl" -->\n\n          <div *ngIf="userUrl" >\n\n              <img class="profile-image" [src]="cloudUrl" (click)="getPicture()">\n\n          </div>\n\n      </div>\n\n\n\n        <ion-item-divider no-lines color="light">Yeni şifre belirleyin:</ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword" placeholder="Yeni Şifre" autocomplete="off" type="password" #pass="ngModel" name="pass" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass.errors">\n\n            <p style="color:red;">Şifre minimum 6 karakter olmalı</p>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="newpassword1" placeholder="Yeni Şifre tekrar" autocomplete="off" type="password" #pass1="ngModel" name="pass1" minlength="6">\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="pass1.value != pass.value">\n\n            <p style="color:red;">Girilen şifreler aynı değil</p>\n\n        </ion-item>\n\n        <ion-item-divider no-lines color="light"></ion-item-divider>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="user.email" placeholder="Email" type="email" #name="ngModel" name="name" disabled>\n\n          </ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n            <ion-input [(ngModel)]="password" placeholder="Mevcut Şifre" type="password" #oldpass="ngModel" name="passwrd" required>\n\n            </ion-input>\n\n        </ion-item>\n\n        <ion-item no-lines *ngIf="oldpass.errors">\n\n            <p style="color:red;">Lütfen şifrenizi giriniz</p>\n\n        </ion-item>\n\n\n\n    </ion-list>\n\n\n\n    <button ion-button block (click)="updateUser()"\n\n            [disabled]="!heroForm.form.valid||pass1.value != pass.value||heroForm.form.untouched">Güncelle</button>\n\n  </div>\n\n  </form>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\hesap\hesap.html"*/,
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_camera__["a" /* Camera */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_4__providers_ozgecmis_ser__["a" /* OzgecmisSerProvider */],
+            __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__["a" /* UserSerProvider */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]])
+    ], HesapPage);
+    return HesapPage;
+}());
+
+//# sourceMappingURL=hesap.js.map
+
+/***/ }),
+
+/***/ 125:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -700,106 +700,21 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 175;
+webpackEmptyAsyncContext.id = 125;
 
 /***/ }),
 
-/***/ 220:
-/***/ (function(module, exports, __webpack_require__) {
-
-var map = {
-	"../pages/ayarlar/ayarlar.module": [
-		722,
-		7
-	],
-	"../pages/firma-hesap/firma-hesap.module": [
-		721,
-		15
-	],
-	"../pages/hesap/hesap.module": [
-		707,
-		14
-	],
-	"../pages/ilan-detay/ilan-detay.module": [
-		709,
-		6
-	],
-	"../pages/ilan-ekle/ilan-ekle.module": [
-		711,
-		1
-	],
-	"../pages/ilan-filtrele/ilan-filtrele.module": [
-		708,
-		13
-	],
-	"../pages/ilanlarim/ilanlarim.module": [
-		710,
-		5
-	],
-	"../pages/login/login.module": [
-		713,
-		12
-	],
-	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
-		712,
-		0
-	],
-	"../pages/ozgecmis-filtrele/ozgecmis-filtrele.module": [
-		717,
-		11
-	],
-	"../pages/ozgecmislerim/ozgecmislerim.module": [
-		714,
-		4
-	],
-	"../pages/reset/reset.module": [
-		719,
-		10
-	],
-	"../pages/signup-firma/signup-firma.module": [
-		715,
-		9
-	],
-	"../pages/signup/signup.module": [
-		718,
-		8
-	],
-	"../pages/tum-ilanlar/tum-ilanlar.module": [
-		716,
-		3
-	],
-	"../pages/tum-ozgecmisler/tum-ozgecmisler.module": [
-		720,
-		2
-	]
-};
-function webpackAsyncContext(req) {
-	var ids = map[req];
-	if(!ids)
-		return Promise.reject(new Error("Cannot find module '" + req + "'."));
-	return __webpack_require__.e(ids[1]).then(function() {
-		return __webpack_require__(ids[0]);
-	});
-};
-webpackAsyncContext.keys = function webpackAsyncContextKeys() {
-	return Object.keys(map);
-};
-webpackAsyncContext.id = 220;
-module.exports = webpackAsyncContext;
-
-/***/ }),
-
-/***/ 26:
+/***/ 16:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UserSerProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -828,7 +743,7 @@ var UserSerProvider = /** @class */ (function () {
         // url1 : string = window.location.origin+'/api/tools/';
         this.url = 'https://isgucvarisveren.herokuapp.com/api/firmaauth/';
         this.url1 = 'https://isgucvarisveren.herokuapp.com/api/tools/';
-        console.log('Hello UserSerProvider Provider');
+        //console.log('Hello UserSerProvider Provider');
         // this.checkAuthentication();
     }
     UserSerProvider.prototype.checkAuthentication = function () {
@@ -843,16 +758,16 @@ var UserSerProvider = /** @class */ (function () {
                     _this.events.publish('login:event');
                 })
                     .catch(function (err) {
-                    console.log("hata");
+                    //console.log("hata");
                 });
                 var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
                 headers.append('Authorization', _this.token);
                 _this.http.get(_this.url + 'protected', { headers: headers })
                     .subscribe(function (res) {
-                    console.log(JSON.stringify(res) + "success");
+                    //console.log(JSON.stringify(res)+"success");
                     resolve(res);
                 }, function (err) {
-                    console.log(JSON.stringify(err) + "err");
+                    //console.log(JSON.stringify(err)+"err");
                     reject(err);
                 });
             });
@@ -888,7 +803,7 @@ var UserSerProvider = /** @class */ (function () {
             _this.showLoader();
             var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
             headers.append('Content-Type', 'application/json');
-            console.log("createaccount");
+            //console.log("createaccount");
             _this.http.post(_this.url + 'register/user', JSON.stringify(details), { headers: headers })
                 .subscribe(function (res) {
                 var data = res.json();
@@ -922,7 +837,7 @@ var UserSerProvider = /** @class */ (function () {
                 var data = res.json();
                 _this.token = data.token;
                 // console.log(data+'data');
-                console.log(JSON.stringify(data) + 'user');
+                //console.log(JSON.stringify(data)+'user');
                 _this.currentUser = data.user;
                 _this.storage.set('token', data.token);
                 _this.storage.set('user', data.user);
@@ -933,7 +848,7 @@ var UserSerProvider = /** @class */ (function () {
             }, function (err) {
                 _this.loading.dismiss();
                 _this.presentToast('Bilgileriniz hatalı veya hesabınız aktif değil!');
-                console.log(JSON.stringify(err) + 'servis err');
+                //console.log(JSON.stringify(err)+'servis err');
                 reject(err);
             });
         });
@@ -946,20 +861,20 @@ var UserSerProvider = /** @class */ (function () {
             var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
             headers.append('Content-Type', 'application/json');
             headers.append('Authorization', _this.token);
-            console.log(JSON.stringify(user) + 'order service update user');
+            //console.log(JSON.stringify(user)+'order service update user');
             _this.http.put(_this.url + 'updateuser' + en, JSON.stringify(user), { headers: headers })
                 .map(function (res) { return res.json(); })
                 .subscribe(function (res) {
                 // this.ozgecmis = kayit;
                 // this.storage.set('ozgecmis', kayit);
-                console.log(JSON.stringify(res) + "updateuser");
+                //console.log(JSON.stringify(res)+"updateuser");
                 _this.loading.dismiss();
                 _this.presentToast('Kullanıcı güncellendi!');
                 resolve(res);
             }, function (err) {
                 // reject(err);
                 _this.loading.dismiss();
-                console.log(JSON.stringify(err));
+                //console.log(JSON.stringify(err));
                 _this.presentToast('Kullanıcı güncellenemedi. Bağlantı problemi veya şifre hatalı olabilir!');
             });
         });
@@ -968,20 +883,20 @@ var UserSerProvider = /** @class */ (function () {
         var _this = this;
         this.showLoader();
         return new Promise(function (resolve, reject) {
-            console.log(JSON.stringify(user) + 'order service update firma');
+            //console.log(JSON.stringify(user)+'order service update firma');
             var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
             headers.append('Content-Type', 'application/json');
             headers.append('Authorization', _this.token);
             _this.http.put(_this.url + 'updatefirma', JSON.stringify(user), { headers: headers })
                 .map(function (res) { return res.json(); })
                 .subscribe(function (res) {
-                console.log(JSON.stringify(res) + "updatefirma");
+                //console.log(JSON.stringify(res)+"updatefirma");
                 _this.loading.dismiss();
                 _this.presentToast('Firma güncellendi. Tekrar giriş yaptığınızda geçerli olacak.');
                 resolve(res);
             }, function (err) {
                 // reject(err);
-                console.log(JSON.stringify(err));
+                //console.log(JSON.stringify(err));
                 _this.loading.dismiss();
                 if (JSON.stringify(err).includes('duplicate'))
                     _this.presentToast('Firma ismi kullanılıyor. Firma güncellenemedi.');
@@ -1004,7 +919,7 @@ var UserSerProvider = /** @class */ (function () {
                 _this.presentToast('Şifreniz resetlendi. Emailinize 1 saat geçerli geçici şifre gönderildi');
             }, function (err) {
                 var erm = JSON.parse(err._body);
-                console.log(erm.error + 'forgot err');
+                //console.log(erm.error+'forgot err')
                 _this.loading.dismiss();
                 _this.presentToast("Geçici şifre gönderilemedi. " + erm.error);
             });
@@ -1024,7 +939,7 @@ var UserSerProvider = /** @class */ (function () {
                 _this.presentToast('Şifreniz değiştirildi.');
             }, function (err) {
                 var erm = JSON.parse(err._body);
-                console.log(erm.error + 'forgot err');
+                //console.log(erm.error+'forgot err')
                 _this.loading.dismiss();
                 _this.presentToast("Yeni şifre kaydedilemedi. " + erm.error);
             });
@@ -1068,14 +983,99 @@ var UserSerProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 363:
+/***/ 167:
+/***/ (function(module, exports, __webpack_require__) {
+
+var map = {
+	"../pages/ayarlar/ayarlar.module": [
+		300,
+		7
+	],
+	"../pages/firma-hesap/firma-hesap.module": [
+		301,
+		15
+	],
+	"../pages/hesap/hesap.module": [
+		302,
+		14
+	],
+	"../pages/ilan-detay/ilan-detay.module": [
+		303,
+		6
+	],
+	"../pages/ilan-ekle/ilan-ekle.module": [
+		304,
+		0
+	],
+	"../pages/ilan-filtrele/ilan-filtrele.module": [
+		305,
+		13
+	],
+	"../pages/ilanlarim/ilanlarim.module": [
+		306,
+		4
+	],
+	"../pages/login/login.module": [
+		307,
+		12
+	],
+	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
+		309,
+		5
+	],
+	"../pages/ozgecmis-filtrele/ozgecmis-filtrele.module": [
+		308,
+		11
+	],
+	"../pages/ozgecmislerim/ozgecmislerim.module": [
+		312,
+		3
+	],
+	"../pages/reset/reset.module": [
+		311,
+		10
+	],
+	"../pages/signup-firma/signup-firma.module": [
+		310,
+		9
+	],
+	"../pages/signup/signup.module": [
+		314,
+		8
+	],
+	"../pages/tum-ilanlar/tum-ilanlar.module": [
+		313,
+		2
+	],
+	"../pages/tum-ozgecmisler/tum-ozgecmisler.module": [
+		315,
+		1
+	]
+};
+function webpackAsyncContext(req) {
+	var ids = map[req];
+	if(!ids)
+		return Promise.reject(new Error("Cannot find module '" + req + "'."));
+	return __webpack_require__.e(ids[1]).then(function() {
+		return __webpack_require__(ids[0]);
+	});
+};
+webpackAsyncContext.keys = function webpackAsyncContextKeys() {
+	return Object.keys(map);
+};
+webpackAsyncContext.id = 167;
+module.exports = webpackAsyncContext;
+
+/***/ }),
+
+/***/ 213:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanFiltrelePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(61);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1104,37 +1104,37 @@ var IlanFiltrelePage = /** @class */ (function () {
         this.sehirler = [];
         this.sehirler = ilanSer.sehirler;
         this.detayAra = navParams.get('detayAra');
-        console.log(JSON.stringify(this.detayAra) + 'detay');
+        //console.log(JSON.stringify(this.detayAra) + 'detay')
         this.sirala = navParams.get('sirala');
         this.ilanlarim = navParams.get('ilanlarim');
-        console.log(this.ilanlarim);
+        //console.log(this.ilanlarim);
     }
     IlanFiltrelePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad IlanFiltrelePage' + this.ilanlarim);
+        //console.log('ionViewDidLoad IlanFiltrelePage'+this.ilanlarim);
     };
     IlanFiltrelePage.prototype.filtrele = function () {
-        console.log(this.sirala + 'kapatfiltre');
-        console.log(JSON.stringify(this.detayAra) + 'kapatfiltre');
+        //console.log(this.sirala+'kapatfiltre');
+        //console.log(JSON.stringify(this.detayAra)+'kapatfiltre');
         // console.log(JSON.stringify(this.sirala)+'parsefiltre');
         if (this.ilanlarim == "ilan") {
-            console.log("ilan filter");
+            //console.log("ilan filter");
             this.events.publish('ilan:filteredilan', "");
         }
         else {
             this.events.publish('ilan:filteredtumilan', "");
-            console.log("tumilan filter");
+            // console.log("tumilan filter");
         }
         this.navCtrl.pop();
     };
     IlanFiltrelePage.prototype.clear = function () {
-        console.log(JSON.stringify(this.detayAra) + 'clearfiltre');
+        //console.log(JSON.stringify(this.detayAra)+'clearfiltre');
         if (this.ilanlarim == "ilan") {
-            console.log("ilan clear");
+            //console.log("ilan clear");
             this.events.publish('ilan:filteredilan', "clear");
         }
         else {
             this.events.publish('ilan:filteredtumilan', "clear");
-            console.log("tumilan clear");
+            //console.log("tumilan clear");
         }
         this.navCtrl.pop();
     };
@@ -1152,13 +1152,13 @@ var IlanFiltrelePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 364:
+/***/ 214:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OzgecmisFiltrelePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1199,22 +1199,22 @@ var OzgecmisFiltrelePage = /** @class */ (function () {
             { "sehir": "Yozgat" }, { "sehir": "Zonguldak" }
         ];
         this.detayAra = navParams.get('detayAra');
-        console.log(JSON.stringify(this.detayAra) + 'detay');
+        //console.log(JSON.stringify(this.detayAra) + 'detay')
         this.sirala = navParams.get('sirala');
         this.page = this.navParams.get('page');
     }
     OzgecmisFiltrelePage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad OzgecmisFiltrelePage');
+        //console.log('ionViewDidLoad OzgecmisFiltrelePage');
     };
     OzgecmisFiltrelePage.prototype.filtrele = function () {
-        console.log(this.sirala + 'kapatfiltre');
-        console.log(JSON.stringify(this.detayAra) + 'kapatfiltre');
+        //console.log(this.sirala+'kapatfiltre');
+        //console.log(JSON.stringify(this.detayAra)+'kapatfiltre');
         // console.log(JSON.stringify(this.sirala)+'parsefiltre');
         this.events.publish('ozgecmis:filtered_' + this.navParams.get('page'));
         this.navCtrl.pop();
     };
     OzgecmisFiltrelePage.prototype.clear = function () {
-        console.log(JSON.stringify(this.detayAra) + 'clearfiltre');
+        //console.log(JSON.stringify(this.detayAra)+'clearfiltre');
         this.events.publish('ozgecmis:filtered_' + this.navParams.get('page'), 'clear');
         this.navCtrl.pop();
     };
@@ -1232,13 +1232,13 @@ var OzgecmisFiltrelePage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 368:
+/***/ 216:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(369);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(373);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(217);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(240);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -1246,40 +1246,36 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 373:
+/***/ 240:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(422);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ilan_filtrele_ilan_filtrele__ = __webpack_require__(363);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(364);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_reset_reset__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_signup_firma_signup_firma__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_hesap_hesap__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_firma_hesap_firma_hesap__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_status_bar__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_splash_screen__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_ilan_ser__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_ozgecmis_ser__ = __webpack_require__(48);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__providers_aktivite_ser__ = __webpack_require__(423);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_http__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__cloudinary_angular_4_x__ = __webpack_require__(424);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__cloudinary_angular_4_x___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__cloudinary_angular_4_x__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_cloudinary_core__ = __webpack_require__(426);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21_cloudinary_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21_cloudinary_core__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_camera__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__ionic_native_social_sharing__ = __webpack_require__(365);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__ionic_native_facebook__ = __webpack_require__(367);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk__ = __webpack_require__(429);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(293);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_ilan_filtrele_ilan_filtrele__ = __webpack_require__(213);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_ozgecmis_filtrele_ozgecmis_filtrele__ = __webpack_require__(214);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_signup_signup__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_reset_reset__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_signup_firma_signup_firma__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_hesap_hesap__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_firma_hesap_firma_hesap__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_native_status_bar__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_splash_screen__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__providers_ilan_ser__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__providers_ozgecmis_ser__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__cloudinary_angular_4_x__ = __webpack_require__(294);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__cloudinary_angular_4_x___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__cloudinary_angular_4_x__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_cloudinary_core__ = __webpack_require__(296);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20_cloudinary_core___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20_cloudinary_core__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ionic_native_camera__ = __webpack_require__(44);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__ionic_native_social_sharing__ = __webpack_require__(215);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1303,7 +1299,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-
+// import { AktiviteSerProvider } from '../providers/aktivite-ser';
 
 
 
@@ -1311,8 +1307,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 // import { Deeplinks } from '@ionic-native/deeplinks';
 
-
-
+// import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
+// import { LinkedInSdkModule } from 'angular-linkedin-sdk';
 var AppModule = /** @class */ (function () {
     function AppModule() {
     }
@@ -1338,31 +1334,31 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_11__pages_firma_hesap_firma_hesap__["a" /* FirmaHesapPage */]
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["BrowserModule"],
+                __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/hesap/hesap.module#HesapPageModule', name: 'HesapPage', segment: 'hesap', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilan-filtrele/ilan-filtrele.module#IlanFiltrelePageModule', name: 'IlanFiltrelePage', segment: 'ilan-filtrele', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/firma-hesap/firma-hesap.module#FirmaHesapPageModule', name: 'FirmaHesapPage', segment: 'firma-hesap', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/hesap/hesap.module#HesapPageModule', name: 'HesapPage', segment: 'hesap', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilan-filtrele/ilan-filtrele.module#IlanFiltrelePageModule', name: 'IlanFiltrelePage', segment: 'ilan-filtrele', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] }
                     ]
                 }),
-                __WEBPACK_IMPORTED_MODULE_19__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
-                __WEBPACK_IMPORTED_MODULE_18__angular_http__["c" /* HttpModule */],
-                __WEBPACK_IMPORTED_MODULE_20__cloudinary_angular_4_x__["CloudinaryModule"].forRoot(__WEBPACK_IMPORTED_MODULE_21_cloudinary_core__, { cloud_name: 'isgucvar', upload_preset: 'cod9ui0a' }),
-                __WEBPACK_IMPORTED_MODULE_25_angular_linkedin_sdk__["LinkedInSdkModule"]
+                __WEBPACK_IMPORTED_MODULE_18__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
+                __WEBPACK_IMPORTED_MODULE_17__angular_http__["c" /* HttpModule */],
+                __WEBPACK_IMPORTED_MODULE_19__cloudinary_angular_4_x__["CloudinaryModule"].forRoot(__WEBPACK_IMPORTED_MODULE_20_cloudinary_core__, { cloud_name: 'isgucvar', upload_preset: 'cod9ui0a' })
+                // LinkedInSdkModule
             ],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicApp */]],
             entryComponents: [
@@ -1388,16 +1384,12 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_13__ionic_native_splash_screen__["a" /* SplashScreen */],
                 { provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["ErrorHandler"], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* IonicErrorHandler */] },
                 __WEBPACK_IMPORTED_MODULE_16__providers_user_ser__["a" /* UserSerProvider */],
-                __WEBPACK_IMPORTED_MODULE_17__providers_aktivite_ser__["a" /* AktiviteSerProvider */],
+                // AktiviteSerProvider,
                 __WEBPACK_IMPORTED_MODULE_14__providers_ilan_ser__["a" /* IlanSerProvider */],
                 __WEBPACK_IMPORTED_MODULE_15__providers_ozgecmis_ser__["a" /* OzgecmisSerProvider */],
-                __WEBPACK_IMPORTED_MODULE_22__ionic_native_camera__["a" /* Camera */],
+                __WEBPACK_IMPORTED_MODULE_21__ionic_native_camera__["a" /* Camera */],
                 // Deeplinks,
-                __WEBPACK_IMPORTED_MODULE_23__ionic_native_social_sharing__["a" /* SocialSharing */],
-                __WEBPACK_IMPORTED_MODULE_24__ionic_native_facebook__["a" /* Facebook */],
-                { provide: 'apiKey', useValue: '86p3aqpfdryb6f' },
-                { provide: 'authorize', useValue: 'true' },
-                { provide: 'isServer', useValue: 'true' } // OPTIONAL by default: false
+                __WEBPACK_IMPORTED_MODULE_22__ionic_native_social_sharing__["a" /* SocialSharing */],
             ]
         })
     ], AppModule);
@@ -1408,18 +1400,18 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 41:
+/***/ 27:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_signup__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_reset__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__signup_signup__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__signup_firma_signup_firma__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__reset_reset__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1444,25 +1436,25 @@ var LoginPage = /** @class */ (function () {
         this.loadingCtrl = loadingCtrl;
         this.storage = storage;
         this.events = events;
-        console.log("loginpage");
+        //console.log("loginpage");
     }
     LoginPage.prototype.ionViewDidLoad = function () {
+        //console.log('ionViewDidLoad LoginPage');
         var _this = this;
-        console.log('ionViewDidLoad LoginPage');
         this.storage.get('user')
             .then(function (user) {
             _this.email = user.email;
             _this.password = user.password;
-            console.log("storage user");
+            //console.log("storage user");
         })
             .catch(function (err) {
-            console.log("hata");
+            //console.log("hata");
             return;
         });
         this.showLoader('Bilgiler yükleniyor...');
         //Check if already authenticated
         this.authService.checkAuthentication().then(function (res) {
-            console.log("Already authorized");
+            //console.log("Already authorized");
             _this.loading.dismiss();
             if (_this.navCtrl.canGoBack())
                 return;
@@ -1480,14 +1472,14 @@ var LoginPage = /** @class */ (function () {
             email: this.email,
             password: this.password
         };
-        console.log(JSON.stringify(credentials) + 'credentials');
+        //console.log(JSON.stringify(credentials)+'credentials');
         this.authService.login(credentials).then(function (result) {
-            console.log(JSON.stringify(result) + "result");
+            //console.log(JSON.stringify(result)+"result");
             // this.loading.dismiss();
             _this.navCtrl.setRoot('IlanlarimPage');
         }, function (err) {
             // this.loading.dismiss();
-            console.log(JSON.stringify(err._body) + 'asdasd');
+            //console.log(JSON.stringify(err._body)+'asdasd');
             // let msg = JSON.parse(err._body);
         });
     };
@@ -1520,20 +1512,20 @@ var LoginPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 422:
+/***/ 293:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(264);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_login_login__ = __webpack_require__(41);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_hesap_hesap__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_firma_hesap_firma_hesap__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(209);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_login_login__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_hesap_hesap__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_firma_hesap_firma_hesap__ = __webpack_require__(114);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1633,13 +1625,13 @@ var MyApp = /** @class */ (function () {
                     text: 'Hayır',
                     role: 'cancel',
                     handler: function () {
-                        console.log('Cancel clicked');
+                        //console.log('Cancel clicked');
                     }
                 },
                 {
                     text: 'Evet',
                     handler: function () {
-                        console.log('Logged out');
+                        //console.log('Logged out');
                         if (message == 'Uygulama kapansın mı?') {
                             _this.platform.exitApp();
                         }
@@ -1680,61 +1672,18 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 423:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AktiviteSerProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-/*
-  Generated class for the AktiviteSerProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
-var AktiviteSerProvider = /** @class */ (function () {
-    function AktiviteSerProvider(http) {
-        this.http = http;
-        console.log('Hello AktiviteSerProvider Provider');
-    }
-    AktiviteSerProvider = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
-    ], AktiviteSerProvider);
-    return AktiviteSerProvider;
-}());
-
-//# sourceMappingURL=aktivite-ser.js.map
-
-/***/ }),
-
-/***/ 48:
+/***/ 36:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OzgecmisSerProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__user_ser__ = __webpack_require__(26);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__user_ser__ = __webpack_require__(16);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1767,7 +1716,7 @@ var OzgecmisSerProvider = /** @class */ (function () {
         // url1 : string = window.location.origin+'/api/tools/avatar/';
         this.url = 'https://isgucvarisveren.herokuapp.com/api/ozgecmis/';
         this.url1 = 'https://isgucvarisveren.herokuapp.com/api/tools/avatar/';
-        console.log('Hello OzgecmisSerProvider Provider');
+        //console.log('Hello OzgecmisSerProvider Provider');
     }
     OzgecmisSerProvider.prototype.getOzgecmis = function (ozgecmisId) {
         var _this = this;
@@ -1779,7 +1728,7 @@ var OzgecmisSerProvider = /** @class */ (function () {
                 .subscribe(function (data) {
                 _this.ozgecmis = data;
                 _this.storage.set('ozgecmis', data);
-                console.log(JSON.stringify(data) + "data123");
+                //console.log(JSON.stringify(data)+"data123");
                 resolve(data);
             }, function (err) {
                 // reject(err);
@@ -1799,7 +1748,7 @@ var OzgecmisSerProvider = /** @class */ (function () {
             _this.http.get(uri, { headers: headers })
                 .map(function (res) { return res.json(); })
                 .subscribe(function (data) {
-                console.log(JSON.stringify(data));
+                //console.log(JSON.stringify(data));
                 resolve(data);
             }, function (err) {
                 // reject(err);
@@ -1876,18 +1825,18 @@ var OzgecmisSerProvider = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 93:
+/***/ 61:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanSerProvider; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(62);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__user_ser__ = __webpack_require__(26);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_storage__ = __webpack_require__(22);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1935,15 +1884,15 @@ var IlanSerProvider = /** @class */ (function () {
             { "sehir": "Trabzon" }, { "sehir": "Tunceli" }, { "sehir": "Şanlıurfa" }, { "sehir": "Uşak" }, { "sehir": "Van" }, { "sehir": "Yalova" },
             { "sehir": "Yozgat" }, { "sehir": "Zonguldak" }
         ];
-        console.log('Hello IlanSerProvider Provider');
+        //console.log('Hello IlanSerProvider Provider');
     }
     IlanSerProvider.prototype.getIlanlar = function (searchTerm, searchKayit, orderBy, skip, limit) {
         var _this = this;
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Authorization', this.authService.token);
         var order = JSON.parse(orderBy);
-        console.log(JSON.stringify(order) + 'order service');
-        console.log(order + 'order service string');
+        //console.log(JSON.stringify(order)+'order service');
+        //console.log(order+'order service string');
         return new Promise(function (resolve, reject) {
             var uri = encodeURI(_this.url + ("?term=" + searchTerm + "&kayit=" + JSON.stringify(searchKayit) + "&orderBy=" + JSON.stringify(order) + "&skip=" + skip + "&limit=" + limit));
             _this.http.get(uri, { headers: headers })
@@ -1964,13 +1913,13 @@ var IlanSerProvider = /** @class */ (function () {
             var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
             headers.append('Content-Type', 'application/json');
             headers.append('Authorization', _this.authService.token);
-            console.log(JSON.stringify(kayit) + 'order service add ilan');
+            //console.log(JSON.stringify(kayit)+'order service add ilan');
             _this.http.put(_this.url + kayit._id, JSON.stringify(kayit), { headers: headers })
                 .map(function (res) { return res.json(); })
                 .subscribe(function (res) {
                 // this.ozgecmis = kayit;
                 // this.storage.set('ozgecmis', kayit);
-                console.log(JSON.stringify(res) + "updateall");
+                //console.log(JSON.stringify(res)+"updateall");
                 _this.loading.dismiss();
                 _this.presentToast('İlan güncellendi!');
                 resolve(res);
@@ -2041,7 +1990,7 @@ var IlanSerProvider = /** @class */ (function () {
             _this.http.get(_this.url + 'getusers/' + id, { headers: headers })
                 .map(function (res) { return res.json(); })
                 .subscribe(function (data) {
-                console.log(JSON.stringify(data) + "data123");
+                //console.log(JSON.stringify(data)+"data123");
                 resolve(data);
             }, function (err) {
                 // reject(err);
@@ -2068,5 +2017,5 @@ var IlanSerProvider = /** @class */ (function () {
 
 /***/ })
 
-},[368]);
+},[216]);
 //# sourceMappingURL=main.js.map

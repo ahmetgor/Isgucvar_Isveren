@@ -1,14 +1,14 @@
 webpackJsonp([6],{
 
-/***/ 709:
+/***/ 303:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IlanDetayPageModule", function() { return IlanDetayPageModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ilan_detay__ = __webpack_require__(724);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ilan_detay__ = __webpack_require__(326);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,17 +41,16 @@ var IlanDetayPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 724:
+/***/ 326:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return IlanDetayPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_social_sharing__ = __webpack_require__(365);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ionic_native_facebook__ = __webpack_require__(367);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_social_sharing__ = __webpack_require__(215);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -66,7 +65,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 /**
  * Generated class for the IlanDetayPage page.
  *
@@ -74,7 +72,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * on Ionic pages and navigation.
  */
 var IlanDetayPage = /** @class */ (function () {
-    function IlanDetayPage(navCtrl, navParams, events, ilanSer, storage, socialSharing, actionSheetCtrl, plt, face) {
+    function IlanDetayPage(navCtrl, navParams, events, ilanSer, storage, socialSharing, actionSheetCtrl, plt) {
         var _this = this;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
@@ -84,8 +82,7 @@ var IlanDetayPage = /** @class */ (function () {
         this.socialSharing = socialSharing;
         this.actionSheetCtrl = actionSheetCtrl;
         this.plt = plt;
-        this.face = face;
-        console.log("ilandetay");
+        //console.log("ilandetay");
         this.ilan = this.navParams.get('ilan');
         this.ilanId = this.navParams.get('ilanId') ? this.navParams.get('ilanId') : this.ilan._id;
         this.guncelleyen = this.navParams.get('guncelleyen');
@@ -99,14 +96,14 @@ var IlanDetayPage = /** @class */ (function () {
     }
     IlanDetayPage.prototype.ionViewDidLoad = function () {
         var _this = this;
-        console.log('ionViewDidLoad IlanDetayPage');
+        //console.log('ionViewDidLoad IlanDetayPage');
         this.ilanSer.getIlan(this.ilanId)
             .then(function (ilan) {
             _this.ilan = ilan;
         });
         this.events.subscribe('ilan:guncelle', function () {
-            console.log('ilan ekle event çağrıldı');
-            console.log(_this.ilan._id + '  id  ' + _this.ilan.id);
+            //console.log('ilan ekle event çağrıldı');
+            //console.log(this.ilan._id+'  id  '+this.ilan.id);
             _this.ilanSer.getIlan(_this.ilanId)
                 .then(function (ilan) {
                 _this.ilan = ilan;
@@ -121,7 +118,7 @@ var IlanDetayPage = /** @class */ (function () {
         // 	description: "Much description"
         // 	// picture: this.ilan.resim
         // }
-        console.log("share face");
+        //console.log("share face");
         FB.ui({
             method: 'share',
             href: 'https://isgucvarisarayan.herokuapp.com' + '/#/detay/' + this.ilan._id,
@@ -138,9 +135,9 @@ var IlanDetayPage = /** @class */ (function () {
             };
             this.socialSharing.shareWithOptions(options)
                 .then(function (result) {
-                console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
+                //console.log("Shared to app: " + result.app); // On Android result.app is currently empty. On iOS it's empty when sharing is cancelled (result.completed=false)
             }).catch(function (msg) {
-                console.log("Sharing failed with message: " + msg);
+                //console.log("Sharing failed with message: " + msg);
             });
         }
         else
@@ -186,7 +183,7 @@ var IlanDetayPage = /** @class */ (function () {
                     role: 'cancel',
                     icon: 'close',
                     handler: function () {
-                        console.log('Cancel clicked');
+                        //console.log('Cancel clicked');
                     }
                 }
             ]
@@ -195,14 +192,14 @@ var IlanDetayPage = /** @class */ (function () {
     };
     IlanDetayPage.prototype.toOzgecmis = function () {
         // console.log(JSON.stringify(this.basvuruList)+'sonuc basvuru');
-        console.log(JSON.stringify(this.ilan) + 'ilan');
+        //console.log(JSON.stringify(this.ilan)+'ilan');
         this.navCtrl.push('OzgecmislerimPage', {
             ilanId: this.ilan._id,
             guncelleyen: this.guncelleyen
         });
     };
     IlanDetayPage.prototype.guncelleIlan = function () {
-        console.log(JSON.stringify(this.ilan) + 'ilan');
+        //console.log(JSON.stringify(this.ilan)+'ilan');
         this.navCtrl.push('IlanEklePage', {
             ilanDetayId: this.ilan._id,
             update: 'Y'
@@ -220,7 +217,7 @@ var IlanDetayPage = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */],
             __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__["a" /* IlanSerProvider */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
             __WEBPACK_IMPORTED_MODULE_4__ionic_native_social_sharing__["a" /* SocialSharing */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */], __WEBPACK_IMPORTED_MODULE_5__ionic_native_facebook__["a" /* Facebook */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]])
     ], IlanDetayPage);
     return IlanDetayPage;
 }());
