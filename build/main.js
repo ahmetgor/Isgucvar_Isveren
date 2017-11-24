@@ -808,7 +808,7 @@ var UserSerProvider = /** @class */ (function () {
                 .subscribe(function (res) {
                 var data = res.json();
                 _this.loading.dismiss();
-                _this.presentToast("Çalışan hesabı oluşturuldu!");
+                _this.presentToast("Çalışan hesabı oluşturuldu. Aktiflemek maille gönderilen linke tıklayın.");
                 resolve(data);
             }, function (err) {
                 // console.log(err+"hebe");
@@ -1032,11 +1032,11 @@ var map = {
 		3
 	],
 	"../pages/reset/reset.module": [
-		311,
+		310,
 		10
 	],
 	"../pages/signup-firma/signup-firma.module": [
-		310,
+		311,
 		9
 	],
 	"../pages/signup/signup.module": [
@@ -1347,8 +1347,8 @@ var AppModule = /** @class */ (function () {
                         { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-filtrele/ozgecmis-filtrele.module#OzgecmisFiltrelePageModule', name: 'OzgecmisFiltrelePage', segment: 'ozgecmis-filtrele', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/reset/reset.module#ResetPageModule', name: 'ResetPage', segment: 'reset', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/signup-firma/signup-firma.module#SignupFirmaPageModule', name: 'SignupFirmaPage', segment: 'signup-firma', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/signup/signup.module#SignupPageModule', name: 'SignupPage', segment: 'signup', priority: 'low', defaultHistory: [] },
@@ -1741,8 +1741,8 @@ var OzgecmisSerProvider = /** @class */ (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append('Authorization', this.authService.token);
         // let order = JSON.parse(orderBy);
-        // console.log(JSON.stringify(order)+'order service');
-        // console.log(order+'order service string');
+        console.log('order service');
+        console.log('order service string');
         var uri = encodeURI(this.url + ("?term=" + searchTerm + "&kayit=" + JSON.stringify(searchKayit) + "&orderBy=" + orderBy + "&skip=" + skip + "&limit=" + limit));
         return new Promise(function (resolve, reject) {
             _this.http.get(uri, { headers: headers })
@@ -1921,7 +1921,7 @@ var IlanSerProvider = /** @class */ (function () {
                 // this.storage.set('ozgecmis', kayit);
                 //console.log(JSON.stringify(res)+"updateall");
                 _this.loading.dismiss();
-                _this.presentToast('İlan güncellendi!');
+                // this.presentToast('İlan güncellendi!');
                 resolve(res);
             }, function (err) {
                 // reject(err);

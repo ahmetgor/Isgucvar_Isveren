@@ -28183,6 +28183,10 @@ page-tum-ilanlar .img-circle {
   border-radius: 50%;
 }
 
+page-tum-ilanlar .ilan ion-row, page-tum-ilanlar .ilan ion-col, page-tum-ilanlar .ilan h2, page-tum-ilanlar .ilan h4, page-tum-ilanlar .ilan p {
+  color: LightGrey;
+}
+
 page-tum-ozgecmisler .spinner-container {
   text-align: center;
   padding: 10px;

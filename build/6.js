@@ -51,6 +51,8 @@ var IlanDetayPageModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_social_sharing__ = __webpack_require__(215);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__login_login__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -65,6 +67,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
+
 /**
  * Generated class for the IlanDetayPage page.
  *
@@ -72,8 +76,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * on Ionic pages and navigation.
  */
 var IlanDetayPage = /** @class */ (function () {
-    function IlanDetayPage(navCtrl, navParams, events, ilanSer, storage, socialSharing, actionSheetCtrl, plt) {
-        var _this = this;
+    function IlanDetayPage(navCtrl, navParams, events, ilanSer, storage, socialSharing, actionSheetCtrl, plt, userAuth) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.events = events;
@@ -82,25 +85,36 @@ var IlanDetayPage = /** @class */ (function () {
         this.socialSharing = socialSharing;
         this.actionSheetCtrl = actionSheetCtrl;
         this.plt = plt;
+        this.userAuth = userAuth;
         //console.log("ilandetay");
         this.ilan = this.navParams.get('ilan');
         this.ilanId = this.navParams.get('ilanId') ? this.navParams.get('ilanId') : this.ilan._id;
         this.guncelleyen = this.navParams.get('guncelleyen');
-        this.storage.get('user')
-            .then(function (user) {
-            _this.guncelleyen = user.email;
-        });
         // this.basvuruList = this.navParams.get('basvurulist');
         // this.kaydedilenList = this.navParams.get('kaydedilenlist');
         // this.ilanId = this.navParams.get('ilanId');
     }
     IlanDetayPage.prototype.ionViewDidLoad = function () {
         var _this = this;
+        if (!this.userAuth.currentUser) {
+            this.userAuth.checkAuthentication().then(function (res) {
+                _this.guncelleyen = _this.userAuth.currentUser.email;
+                _this.ilanSer.getIlan(_this.ilanId)
+                    .then(function (ilan) {
+                    _this.ilan = ilan;
+                });
+            }, function (err) {
+                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_6__login_login__["a" /* LoginPage */]);
+            });
+        }
+        else {
+            this.guncelleyen = this.userAuth.currentUser.email;
+            this.ilanSer.getIlan(this.ilanId)
+                .then(function (ilan) {
+                _this.ilan = ilan;
+            });
+        }
         //console.log('ionViewDidLoad IlanDetayPage');
-        this.ilanSer.getIlan(this.ilanId)
-            .then(function (ilan) {
-            _this.ilan = ilan;
-        });
         this.events.subscribe('ilan:guncelle', function () {
             //console.log('ilan ekle event çağrıldı');
             //console.log(this.ilan._id+'  id  '+this.ilan.id);
@@ -217,7 +231,7 @@ var IlanDetayPage = /** @class */ (function () {
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */],
             __WEBPACK_IMPORTED_MODULE_2__providers_ilan_ser__["a" /* IlanSerProvider */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
             __WEBPACK_IMPORTED_MODULE_4__ionic_native_social_sharing__["a" /* SocialSharing */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* ActionSheetController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */]])
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["n" /* Platform */], __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__["a" /* UserSerProvider */]])
     ], IlanDetayPage);
     return IlanDetayPage;
 }());
