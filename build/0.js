@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 304:
+/***/ 302:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "IlanEklePageModule", function() { return IlanEklePageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ilan_ekle__ = __webpack_require__(327);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ilan_ekle__ = __webpack_require__(319);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -41,13 +41,13 @@ var IlanEklePageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 316:
+/***/ 308:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var AsyncAction_1 = __webpack_require__(319);
-var AsyncScheduler_1 = __webpack_require__(321);
+var AsyncAction_1 = __webpack_require__(311);
+var AsyncScheduler_1 = __webpack_require__(313);
 /**
  *
  * Async Scheduler
@@ -95,25 +95,25 @@ exports.async = new AsyncScheduler_1.AsyncScheduler(AsyncAction_1.AsyncAction);
 
 /***/ }),
 
-/***/ 317:
+/***/ 309:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var Observable_1 = __webpack_require__(9);
-var debounceTime_1 = __webpack_require__(318);
+var debounceTime_1 = __webpack_require__(310);
 Observable_1.Observable.prototype.debounceTime = debounceTime_1.debounceTime;
 //# sourceMappingURL=debounceTime.js.map
 
 /***/ }),
 
-/***/ 318:
+/***/ 310:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var async_1 = __webpack_require__(316);
-var debounceTime_1 = __webpack_require__(323);
+var async_1 = __webpack_require__(308);
+var debounceTime_1 = __webpack_require__(315);
 /**
  * Emits a value from the source Observable only after a particular time span
  * has passed without another source emission.
@@ -169,7 +169,7 @@ exports.debounceTime = debounceTime;
 
 /***/ }),
 
-/***/ 319:
+/***/ 311:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -180,7 +180,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var root_1 = __webpack_require__(33);
-var Action_1 = __webpack_require__(320);
+var Action_1 = __webpack_require__(312);
 /**
  * We need this JSDoc comment for affecting ESDoc.
  * @ignore
@@ -318,7 +318,7 @@ exports.AsyncAction = AsyncAction;
 
 /***/ }),
 
-/***/ 320:
+/***/ 312:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -369,7 +369,7 @@ exports.Action = Action;
 
 /***/ }),
 
-/***/ 321:
+/***/ 313:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -379,7 +379,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var Scheduler_1 = __webpack_require__(322);
+var Scheduler_1 = __webpack_require__(314);
 var AsyncScheduler = (function (_super) {
     __extends(AsyncScheduler, _super);
     function AsyncScheduler() {
@@ -427,7 +427,7 @@ exports.AsyncScheduler = AsyncScheduler;
 
 /***/ }),
 
-/***/ 322:
+/***/ 314:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -483,7 +483,7 @@ exports.Scheduler = Scheduler;
 
 /***/ }),
 
-/***/ 323:
+/***/ 315:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -494,7 +494,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Subscriber_1 = __webpack_require__(28);
-var async_1 = __webpack_require__(316);
+var async_1 = __webpack_require__(308);
 /**
  * Emits a value from the source Observable only after a particular time span
  * has passed without another source emission.
@@ -606,7 +606,7 @@ function dispatchNext(subscriber) {
 
 /***/ }),
 
-/***/ 324:
+/***/ 316:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -617,7 +617,7 @@ function dispatchNext(subscriber) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ilan_filtrele_ilan_filtrele__ = __webpack_require__(213);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_forms__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_user_ser__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime__ = __webpack_require__(309);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_rxjs_add_operator_debounceTime__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_storage__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__login_login__ = __webpack_require__(27);
@@ -804,7 +804,7 @@ var IlanlarimPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 327:
+/***/ 319:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -814,7 +814,7 @@ var IlanlarimPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_ilan_ser__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ilanlarim_ilanlarim__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ilanlarim_ilanlarim__ = __webpack_require__(316);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__providers_user_ser__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__login_login__ = __webpack_require__(27);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -947,7 +947,7 @@ var IlanEklePage = /** @class */ (function () {
     };
     IlanEklePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ilan-ekle',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-ekle\ilan-ekle.html"*/'<!--\n\n  Generated template for the IlanEklePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>İlan Ekle & Güncelle</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <div *ngIf="detay && user">\n\n    <div [class.ilan]="!detay.enabled">\n\n\n\n    <form [formGroup]="ilanFormGroup">\n\n<!-- <form [formGroup]="ozgecmisFormGroup"> -->\n\n    <!-- <ion-label floating>Ünvan / Son Pozisyon</ion-label> -->\n\n\n\n    <ion-item>\n\n        <ion-label floating>Başlık</ion-label>\n\n        <ion-input formControlName="baslik" type="text" [(ngModel)]="detay.baslik"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label floating>Firma</ion-label>\n\n        <ion-input formControlName="firma" disabled type="text" [(ngModel)]="detay.firmaAdi"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating>Tip</ion-label>\n\n      <ion-select formControlName="tip" type="text" [(ngModel)]="detay.tip" cancelText="İptal" okText="Tamam">\n\n        <ion-option value=\'Tam Z.\'>Tam Z.</ion-option>\n\n        <ion-option value=\'Yarı Z.\'>Yarı Z.</ion-option>\n\n        <ion-option value=\'Proje Bazlı\'>Proje Bazlı</ion-option>\n\n        <ion-option value=\'Staj\'>Staj</ion-option>\n\n        <ion-option value=\'Günlük\'>Günlük</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label floating>İl</ion-label>\n\n      <ion-select formControlName="il" [(ngModel)]="detay.il" cancelText="İptal" okText="Tamam">\n\n        <!-- <ion-option value=\'Konumum\'>Konumum</ion-option> -->\n\n        <ion-option *ngFor="let item of sehirler" value=\'{{item.sehir}}\'>{{item.sehir}}</ion-option>\n\n        <!-- <ion-option value=\'İstanbul\'>İstanbul</ion-option> -->\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label floating>Askerlik</ion-label>\n\n    <ion-select formControlName="askerlik" [(ngModel)]="detay.askerlik" cancelText="İptal" okText="Tamam">\n\n      <ion-option value="Yapıldı/Muaf" >Yapıldı/Muaf</ion-option>\n\n      <ion-option value="Yapılmadı/Tecilli">Yapılmadı/Tecilli</ion-option>\n\n    </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating>Ehliyet</ion-label>\n\n        <ion-input formControlName="ehliyet" type="text" [(ngModel)]="detay.ehliyet"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label floating>Eğitim</ion-label>\n\n    <ion-select formControlName="egitimdurum" [(ngModel)]="detay.egitim" multiple="true"  cancelText="İptal" okText="Tamam">\n\n      <ion-option value=\'Lise\'>Lise</ion-option>\n\n      <ion-option value=\'Lisans\'>Lisans</ion-option>\n\n      <ion-option value=\'Yüksek Lisans - Doktora\'>Yüksek Lisans - Doktora</ion-option>\n\n    </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label floating>Tecrübe</ion-label>\n\n      <ion-select formControlName="tecrubedurum" [(ngModel)]="detay.tecrube" multiple="true" cancelText="İptal" okText="Tamam">\n\n        <!-- <ion-option value=\'\' selected="true">Farketmez</ion-option> -->\n\n        <ion-option value=\'Az Tecrübeli (Junior)\'>Az Tecrübeli (Junior)</ion-option>\n\n        <ion-option value=\'Orta Tecrübeli (Midlevel)\'>Orta Tecrübeli (Midlevel)</ion-option>\n\n        <ion-option value=\'Çok Tecrübeli (Senior)\'>Çok Tecrübeli (Senior)</ion-option>\n\n        <ion-option value=\'Yönetici (Manager)\'>Yönetici (Manager)</ion-option>\n\n        <ion-option value=\'Stajyer\'>Stajyer</ion-option>\n\n        <ion-option value=\'Hizmet Personeli - İşçi\'>Hizmet Personeli - İşçi</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating>Açıklama</ion-label>\n\n        <ion-textarea rows="6" formControlName="aciklama" type="text" [(ngModel)]="detay.aciklama"></ion-textarea>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label>Aktiflik</ion-label>\n\n      <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="detay.enabled"></ion-toggle>\n\n    </ion-item>\n\n\n\n    <ion-item no-lines *ngIf="!ilanFormGroup.valid">\n\n        <p style="color:red;">Tüm alanlar zorunlu</p>\n\n    </ion-item>\n\n    <!-- <div *ngIf="(des==\'tecrubeEkle\'||des==\'egitimEkle\'||des==\'yabanciDilEkle\'||des==\'sertifikaEkle\')">\n\n      <p></p> -->\n\n  <button ion-button block icon-left color="secondary" [disabled]="!ilanFormGroup.valid" (click)="add()">\n\n    <ion-icon name="add-circle"></ion-icon>\n\n    Ekle&Güncelle</button>\n\n  <!-- </div> -->\n\n\n\n  <!-- <div *ngIf="(des!=\'tecrubeEkle\'&&des!=\'egitimEkle\'&&des!=\'yabanciDilEkle\'&&des!=\'sertifikaEkle\')">\n\n    <p></p>\n\n    <ion-row>\n\n      <ion-col *ngIf="(des!=\'kisisel\'&&des!=\'iletisim\'&&des!=\'bilgisayar\')">\n\n    <button ion-button block icon-left color="danger" (click)="delete()">\n\n      <ion-icon name="trash"></ion-icon>\n\n      Sil</button>\n\n    </ion-col>\n\n    <ion-col>\n\n    <button ion-button block icon-left [disabled]="!kisiselFormGroup.valid" (click)="save()">\n\n      <ion-icon name="checkmark"></ion-icon>\n\n      Güncelle</button>\n\n    </ion-col>\n\n    </ion-row>\n\n  </div> -->\n\n</form>\n\n</div>\n\n  </div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-ekle\ilan-ekle.html"*/,
+            selector: 'page-ilan-ekle',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-ekle\ilan-ekle.html"*/'<!--\n\n  Generated template for the IlanEklePage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <button ion-button menuToggle>\n\n      <ion-icon name="menu"></ion-icon>\n\n    </button>\n\n    <ion-title>İlan Ekle & Güncelle</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <div *ngIf="detay && user">\n\n    <div [class.ilan]="!detay.enabled">\n\n\n\n    <form [formGroup]="ilanFormGroup">\n\n<!-- <form [formGroup]="ozgecmisFormGroup"> -->\n\n    <!-- <ion-label floating>Ünvan / Son Pozisyon</ion-label> -->\n\n\n\n    <ion-item>\n\n        <ion-label floating>Başlık</ion-label>\n\n        <ion-input formControlName="baslik" type="text" [(ngModel)]="detay.baslik"></ion-input>\n\n    </ion-item>\n\n    <ion-item>\n\n        <ion-label floating>Firma</ion-label>\n\n        <ion-input formControlName="firma" disabled type="text" [(ngModel)]="detay.firmaAdi"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating>Tip</ion-label>\n\n      <ion-select formControlName="tip" type="text" [(ngModel)]="detay.tip" cancelText="İptal" okText="Tamam">\n\n        <ion-option value=\'Tam Z.\'>Tam Z.</ion-option>\n\n        <ion-option value=\'Yarı Z.\'>Yarı Z.</ion-option>\n\n        <ion-option value=\'Proje Bazlı\'>Proje Bazlı</ion-option>\n\n        <ion-option value=\'Staj\'>Staj</ion-option>\n\n        <ion-option value=\'Günlük\'>Günlük</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label floating>İl</ion-label>\n\n      <ion-select formControlName="il" [(ngModel)]="detay.il" cancelText="İptal" okText="Tamam">\n\n        <!-- <ion-option value=\'Konumum\'>Konumum</ion-option> -->\n\n        <ion-option *ngFor="let item of sehirler" value=\'{{item.sehir}}\'>{{item.sehir}}</ion-option>\n\n        <!-- <ion-option value=\'İstanbul\'>İstanbul</ion-option> -->\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label floating>Askerlik</ion-label>\n\n    <ion-select formControlName="askerlik" [(ngModel)]="detay.askerlik" cancelText="İptal" okText="Tamam">\n\n      <ion-option value="Yapıldı/Muaf" >Yapıldı/Muaf</ion-option>\n\n      <ion-option value="Yapılmadı/Tecilli">Yapılmadı/Tecilli</ion-option>\n\n    </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating>Ehliyet</ion-label>\n\n        <ion-input formControlName="ehliyet" type="text" [(ngModel)]="detay.ehliyet"></ion-input>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n    <ion-label floating>Eğitim</ion-label>\n\n    <ion-select formControlName="egitimdurum" [(ngModel)]="detay.egitim" multiple="true"  cancelText="İptal" okText="Tamam">\n\n      <ion-option value=\'Lise\'>Lise</ion-option>\n\n      <ion-option value=\'Lisans\'>Lisans</ion-option>\n\n      <ion-option value=\'Yüksek Lisans - Doktora\'>Yüksek Lisans - Doktora</ion-option>\n\n    </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label floating>Tecrübe</ion-label>\n\n      <ion-select formControlName="tecrubedurum" [(ngModel)]="detay.tecrube" multiple="true" cancelText="İptal" okText="Tamam">\n\n        <!-- <ion-option value=\'\' selected="true">Farketmez</ion-option> -->\n\n        <ion-option value=\'Az Tecrübeli (0-2 yıl)\'>Az Tecrübeli (0-2 yıl)</ion-option>\n\n        <ion-option value=\'Orta Tecrübeli (2-4 yıl)\'>Orta Tecrübeli (2-4 yıl)</ion-option>\n\n        <ion-option value=\'Çok Tecrübeli (4-6 yıl)\'>Çok Tecrübeli (4-6 yıl)</ion-option>\n\n        <ion-option value=\'Yönetici - Eksper (6 yıl üstü)\'>Yönetici - Eksper (6+ yıl)</ion-option>\n\n        <ion-option value=\'Stajyer\'>Stajyer</ion-option>\n\n        <ion-option value=\'Hizmet Personeli - İşçi\'>Hizmet Personeli - İşçi</ion-option>\n\n      </ion-select>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n        <ion-label floating>Açıklama</ion-label>\n\n        <ion-textarea rows="6" formControlName="aciklama" type="text" [(ngModel)]="detay.aciklama"></ion-textarea>\n\n    </ion-item>\n\n\n\n    <ion-item>\n\n      <ion-label>Aktiflik</ion-label>\n\n      <ion-toggle [ngModelOptions]="{standalone: true}" [(ngModel)]="detay.enabled"></ion-toggle>\n\n    </ion-item>\n\n\n\n    <ion-item no-lines *ngIf="!ilanFormGroup.valid">\n\n        <p style="color:red;">Tüm alanlar zorunlu</p>\n\n    </ion-item>\n\n    <!-- <div *ngIf="(des==\'tecrubeEkle\'||des==\'egitimEkle\'||des==\'yabanciDilEkle\'||des==\'sertifikaEkle\')">\n\n      <p></p> -->\n\n  <button ion-button block icon-left color="secondary" [disabled]="!ilanFormGroup.valid" (click)="add()">\n\n    <ion-icon name="add-circle"></ion-icon>\n\n    Ekle&Güncelle</button>\n\n  <!-- </div> -->\n\n\n\n  <!-- <div *ngIf="(des!=\'tecrubeEkle\'&&des!=\'egitimEkle\'&&des!=\'yabanciDilEkle\'&&des!=\'sertifikaEkle\')">\n\n    <p></p>\n\n    <ion-row>\n\n      <ion-col *ngIf="(des!=\'kisisel\'&&des!=\'iletisim\'&&des!=\'bilgisayar\')">\n\n    <button ion-button block icon-left color="danger" (click)="delete()">\n\n      <ion-icon name="trash"></ion-icon>\n\n      Sil</button>\n\n    </ion-col>\n\n    <ion-col>\n\n    <button ion-button block icon-left [disabled]="!kisiselFormGroup.valid" (click)="save()">\n\n      <ion-icon name="checkmark"></ion-icon>\n\n      Güncelle</button>\n\n    </ion-col>\n\n    </ion-row>\n\n  </div> -->\n\n</form>\n\n</div>\n\n  </div>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ilan-ekle\ilan-ekle.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__angular_forms__["a" /* FormBuilder */], __WEBPACK_IMPORTED_MODULE_4__providers_ilan_ser__["a" /* IlanSerProvider */],

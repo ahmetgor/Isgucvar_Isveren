@@ -8,7 +8,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AyarlarPageModule", function() { return AyarlarPageModule; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ayarlar__ = __webpack_require__(325);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ayarlar__ = __webpack_require__(317);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -38,7 +38,7 @@ var AyarlarPageModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 325:
+/***/ 317:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82,9 +82,14 @@ var AyarlarPage = /** @class */ (function () {
             });
         }
     };
+    AyarlarPage.prototype.mailTo = function () {
+        var myWindow = window.open('mailto:destek.isgucvarisveren@isgucvar.com', '_system');
+        // window.location.href = "mailto:destek.isgucvarisveren@isgucvar.com";
+        myWindow.close();
+    };
     AyarlarPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-ayarlar',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ayarlar\ayarlar.html"*/'<!--\n  Generated template for the AyarlarPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>Ayarlar</ion-title>\n    </ion-navbar>  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-item-group>\n    <ion-item-divider color="light">Bildirimler</ion-item-divider>\n<ion-item>\n  <ion-label>Uygulama Bildirimleri</ion-label>\n  <ion-toggle item-end checked="true"></ion-toggle>\n</ion-item>\n<ion-item>\n  <ion-label>Email Bildirimleri</ion-label>\n  <ion-toggle item-end checked="false"></ion-toggle>\n</ion-item>\n</ion-item-group>\n\n<ion-item-group>\n  <ion-item-divider color="light">Destek</ion-item-divider>\n<button ion-item>\nGizlilik\n</button>\n<button ion-item>\nGeri Bildirim & Öneri\n</button>\n<button ion-item>\nHükümler & Şartlar\n</button>\n</ion-item-group>\n\n<ion-item-group>\n  <ion-item-divider color="light">Hakkında</ion-item-divider>\n  <button ion-item>\nSürüm Bilgisi\n</button>\n<button ion-item>\nUygulamayı Oyla\n</button>\n</ion-item-group>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ayarlar\ayarlar.html"*/,
+            selector: 'page-ayarlar',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ayarlar\ayarlar.html"*/'<!--\n  Generated template for the AyarlarPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-navbar>\n      <button ion-button menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n      <ion-title>Ayarlar</ion-title>\n    </ion-navbar>  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-item-group>\n    <ion-item-divider color="light">Bildirimler</ion-item-divider>\n<ion-item>\n  <ion-label>Uygulama Bildirimleri</ion-label>\n  <ion-toggle item-end checked="true"></ion-toggle>\n</ion-item>\n<ion-item>\n  <ion-label>Email Bildirimleri</ion-label>\n  <ion-toggle item-end checked="false"></ion-toggle>\n</ion-item>\n</ion-item-group>\n\n<ion-item-group>\n  <ion-item-divider color="light">Destek</ion-item-divider>\n<button ion-item>\nGizlilik\n</button>\n<button ion-item (click)="mailTo()">\nGeri Bildirim & Öneri\n</button>\n<button ion-item>\nHükümler & Şartlar\n</button>\n</ion-item-group>\n\n<ion-item-group>\n  <ion-item-divider color="light">Hakkında</ion-item-divider>\n  <button ion-item>\nSürüm Bilgisi\n</button>\n<button ion-item>\nUygulamayı Oyla\n</button>\n</ion-item-group>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\ayarlar\ayarlar.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["m" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__["a" /* UserSerProvider */]])
