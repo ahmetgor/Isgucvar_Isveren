@@ -301,7 +301,7 @@ var UserSerProvider = /** @class */ (function () {
 
 var map = {
 	"../pages/ayarlar/ayarlar.module": [
-		300,
+		307,
 		7
 	],
 	"../pages/ilan-detay/ilan-detay.module": [
@@ -309,27 +309,27 @@ var map = {
 		6
 	],
 	"../pages/ilan-ekle/ilan-ekle.module": [
-		302,
+		300,
 		0
 	],
 	"../pages/ilanlarim/ilanlarim.module": [
-		303,
+		302,
 		4
 	],
 	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
-		304,
+		303,
 		5
 	],
 	"../pages/ozgecmislerim/ozgecmislerim.module": [
-		305,
+		304,
 		3
 	],
 	"../pages/tum-ilanlar/tum-ilanlar.module": [
-		306,
+		305,
 		2
 	],
 	"../pages/tum-ozgecmisler/tum-ozgecmisler.module": [
-		307,
+		306,
 		1
 	]
 };
@@ -1312,14 +1312,14 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_18__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -1468,7 +1468,7 @@ var LoginPage = /** @class */ (function () {
     };
     LoginPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-            selector: 'page-login',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/'<!--\n  Generated template for the Login page.\n\n  See http://ionicframework.com/docs/v2/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>İşveren Giriş</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n<ion-content padding>\n\n  <form #heroForm="ngForm">\n\n            <ion-list>\n\n              <ion-item>\n                <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n                <ion-input [(ngModel)]="email" placeholder="Email" type="email" #name="ngModel" name="name"\n                required pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>\n              </ion-item>\n              <ion-item no-lines *ngIf="name.errors">\n                  <p style="color:red;">Lütfen geçerli email giriniz</p>\n              </ion-item>\n              <ion-item>\n                <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n                <ion-input [(ngModel)]="password" placeholder="Şifre" type="password" #pass="ngModel" name="pass" required></ion-input>\n              </ion-item>\n            </ion-list>\n\n            <button ion-button block icon-left (click)="login()" color="primary"  [disabled]="!heroForm.form.valid">\n              <ion-icon name="log-in"></ion-icon>\n              GİrİŞ</button>\n          </form>\n\n    <ion-row>\n        <ion-col text-center>\n            <button ion-button round icon-left align="center" color="secondary" (click)="launchSignup()">\n              <ion-icon name="person-add"></ion-icon>\n              Hesap OluŞtur</button>\n        </ion-col>\n        <ion-col text-center>\n            <button ion-button round icon-left align="center" color="yellow" (click)="launchFirmaSignup()">\n              <ion-icon name="power"></ion-icon>\n              Fİrma OluŞtur</button>\n        </ion-col>\n        <ion-col text-center>\n          <button ion-button clear align="center" color="danger"  (click)="resetPass()">Şİfremİ unuttum</button>\n        </ion-col>\n    </ion-row>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/'\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>İşveren Giriş</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n\n\n  <form #heroForm="ngForm">\n\n\n\n            <ion-list>\n\n\n\n              <ion-item>\n\n                <ion-label><ion-icon name="mail"></ion-icon></ion-label>\n\n                <ion-input [(ngModel)]="email" placeholder="Email" type="email" #name="ngModel" name="name"\n\n                required pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"></ion-input>\n\n              </ion-item>\n\n              <ion-item no-lines *ngIf="name.errors">\n\n                  <p style="color:red;">Lütfen geçerli email giriniz</p>\n\n              </ion-item>\n\n              <ion-item>\n\n                <ion-label><ion-icon name="lock"></ion-icon></ion-label>\n\n                <ion-input [(ngModel)]="password" placeholder="Şifre" type="password" #pass="ngModel" name="pass" required></ion-input>\n\n              </ion-item>\n\n            </ion-list>\n\n\n\n            <button ion-button block icon-left (click)="login()" color="primary"  [disabled]="!heroForm.form.valid">\n\n              <ion-icon name="log-in"></ion-icon>\n\n              GİrİŞ</button>\n\n          </form>\n\n\n\n    <ion-row>\n\n        <ion-col text-center>\n\n            <button ion-button round icon-left align="center" color="secondary" (click)="launchSignup()">\n\n              <ion-icon name="person-add"></ion-icon>\n\n              Hesap OluŞtur</button>\n\n        </ion-col>\n\n        <ion-col text-center>\n\n            <button ion-button round icon-left align="center" color="yellow" (click)="launchFirmaSignup()">\n\n              <ion-icon name="power"></ion-icon>\n\n              Fİrma OluŞtur</button>\n\n        </ion-col>\n\n        <ion-col text-center>\n\n          <button ion-button clear align="center" color="danger"  (click)="resetPass()">Şİfremİ unuttum</button>\n\n        </ion-col>\n\n    </ion-row>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\7448\Desktop\isgucvarIsveren\src\pages\login\login.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_user_ser__["a" /* UserSerProvider */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_6__ionic_storage__["b" /* Storage */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["d" /* Events */]])
