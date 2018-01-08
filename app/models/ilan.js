@@ -76,7 +76,14 @@ var IlanSchema = new mongoose.Schema({
 
     enabled: {
         type: Boolean
-    }
+    },
+
+    tags: [{
+        tag: {
+        type: String
+          },
+        yil: {type: Number}}
+  ]
 
 }, {
     timestamps: { createdAt: 'olusturmaTarih', updatedAt: 'guncellemeTarih' } ,

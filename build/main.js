@@ -285,11 +285,10 @@ var UserSerProvider = /** @class */ (function () {
     };
     UserSerProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* Events */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["o" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["i" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4_ionic_angular__["d" /* Events */]) === "function" && _e || Object])
     ], UserSerProvider);
     return UserSerProvider;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=user-ser.js.map
@@ -301,7 +300,7 @@ var UserSerProvider = /** @class */ (function () {
 
 var map = {
 	"../pages/ayarlar/ayarlar.module": [
-		307,
+		300,
 		7
 	],
 	"../pages/ilan-detay/ilan-detay.module": [
@@ -309,27 +308,27 @@ var map = {
 		6
 	],
 	"../pages/ilan-ekle/ilan-ekle.module": [
-		300,
+		302,
 		0
 	],
 	"../pages/ilanlarim/ilanlarim.module": [
-		302,
+		303,
 		4
 	],
 	"../pages/ozgecmis-detay/ozgecmis-detay.module": [
-		303,
+		304,
 		5
 	],
 	"../pages/ozgecmislerim/ozgecmislerim.module": [
-		304,
+		305,
 		3
 	],
 	"../pages/tum-ilanlar/tum-ilanlar.module": [
-		305,
+		306,
 		2
 	],
 	"../pages/tum-ozgecmisler/tum-ozgecmisler.module": [
-		306,
+		307,
 		1
 	]
 };
@@ -1312,14 +1311,14 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["g" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
-                        { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilan-detay/ilan-detay.module#IlanDetayPageModule', name: 'IlanDetayPage', segment: 'ilandetay/:ilanId', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/ilan-ekle/ilan-ekle.module#IlanEklePageModule', name: 'IlanEklePage', segment: 'ilan-ekle', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ilanlarim/ilanlarim.module#IlanlarimPageModule', name: 'IlanlarimPage', segment: 'ilanlarim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmis-detay/ozgecmis-detay.module#OzgecmisDetayPageModule', name: 'OzgecmisDetayPage', segment: 'ozgecmisdetay/:ozgecmisId', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/ozgecmislerim/ozgecmislerim.module#OzgecmislerimPageModule', name: 'OzgecmislerimPage', segment: 'ozgecmislerim', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/tum-ilanlar/tum-ilanlar.module#TumIlanlarPageModule', name: 'TumIlanlarPage', segment: 'tum-ilanlar', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/ayarlar/ayarlar.module#AyarlarPageModule', name: 'AyarlarPage', segment: 'ayarlar', priority: 'low', defaultHistory: [] }
+                        { loadChildren: '../pages/tum-ozgecmisler/tum-ozgecmisler.module#TumOzgecmislerPageModule', name: 'TumOzgecmislerPage', segment: 'tum-ozgecmisler', priority: 'low', defaultHistory: [] }
                     ]
                 }),
                 __WEBPACK_IMPORTED_MODULE_18__ionic_storage__["a" /* IonicStorageModule */].forRoot(),
@@ -1782,11 +1781,10 @@ var OzgecmisSerProvider = /** @class */ (function () {
     };
     OzgecmisSerProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
-            __WEBPACK_IMPORTED_MODULE_5__user_ser__["a" /* UserSerProvider */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5__user_ser__["a" /* UserSerProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__user_ser__["a" /* UserSerProvider */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */]) === "function" && _e || Object])
     ], OzgecmisSerProvider);
     return OzgecmisSerProvider;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=ozgecmis-ser.js.map
@@ -1969,11 +1967,10 @@ var IlanSerProvider = /** @class */ (function () {
     };
     IlanSerProvider = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */], __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */],
-            __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */],
-            __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__user_ser__["a" /* UserSerProvider */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["o" /* ToastController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ionic_angular__["i" /* LoadingController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__ionic_storage__["b" /* Storage */]) === "function" && _e || Object])
     ], IlanSerProvider);
     return IlanSerProvider;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=ilan-ser.js.map
